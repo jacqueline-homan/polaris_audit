@@ -12,10 +12,10 @@ module Types =
 
     type Help =
         | Helped
-        | NotHelped of CallerRefToOtherNgo * Followup
+        | NotHelped of (CallerRefToOtherNgo * Followup) option
 
     and CallerRefToOtherNgo =
-        | VictmSafehouse of Help
+        | VictimSafehouse of Help
         | LaborTraffickingNgo of Help
         | SurvivorAssistanceNgo of Help      
 
