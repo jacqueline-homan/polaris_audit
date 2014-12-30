@@ -1,7 +1,7 @@
 ﻿namespace Polaris
 
 module Types =
-   
+
 
     type Caller =
         | Victim
@@ -32,7 +32,7 @@ module Types =
         | FailedToHelpCaller
         | ProvideDirectHelpToVictimOrSurvivor
 
-    
+    type Polaris = Polaris of Caller * PolarisAction
 
   
 
