@@ -10,11 +10,11 @@ module Types =
 
     type Followup = Followup of bool 
 
-    type Help =
+    type Help = //Whether the NGO Polaris referred user to helped or not
         | Helped
-        | NotHelped of (CallerRefToOtherNgo * Followup) option
+        | NotHelped of Followup
 
-    and CallerRefToOtherNgo =
+    type CallerRefToOtherNgo =
         | VictimSafehouse of Help
         | LaborTraffickingNgo of Help
         | SurvivorAssistanceNgo of Help      
@@ -32,7 +32,13 @@ module Types =
         | FailedToHelpCaller
         | ProvideDirectHelpToVictimOrSurvivor
 
-    type Polaris = Polaris of Caller * PolarisAction
+    type CallerRequest =
+        | PoliceDispatch //911 coordination for trafficking in progress
+        | VictimServices //emergency shelter in victim safehouse
+        | SurvivorAssistance //aid for destitute survivor
+      
+
+    type Polaris = Polaris of Caller * CallerRequest * PolarisAction 
 
   
 

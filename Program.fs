@@ -9,9 +9,10 @@ open Polaris.TerminalBuilder
 
 [<EntryPoint>]
 let main argv = 
-    ignore (caller())
-    ignore (helpbuilder())
-    ignore (refbuilder())
+    let c = (caller())
+    let cr = (callerRequest())
+    let pa = (polaris_action())
+    let ca = Polaris(c, cr, pa)
 //    printfn "%A" argv
     0 // return an integer exit code
 
