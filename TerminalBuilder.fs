@@ -23,6 +23,24 @@ module TerminalBuilder =
             | "3" -> Advocate
             | _ -> printfn "Invalid Response"
                    caller()
+
+    let rec ngo():Ngo =
+        printfn "What kind of NGO were you referred to?"
+        printfn "Enter 1 for Sex Trafficking Victim Safehouse"
+        printfn "Enter 2 for Emergency Homeless Shelter"
+        printfn "Enter 3 for Poverty Relief"
+        printfn "Enter 4 for Survivor Medical and Dental Care"
+        printfn "Enter 5 for General Survivor Aid" 
+        let response = Console.ReadLine()
+        match response.Trim() with
+            | "1" -> VictimSafehouse 
+            | "2" -> HomelessShelter
+            | "3" -> PovertyRelief
+            | "4" -> MedicalDentalCare
+            | "5" -> SurvivorAid
+            | _ ->
+                printfn "Invalid Option"
+                ngo()
     
     let rec callerRequest(): CallerRequest =
         printfn "Please enter what help you requested"
@@ -35,82 +53,69 @@ module TerminalBuilder =
             | "2" -> SurvivorAssistance
             | "3" -> PoliceDispatch
             | _ -> printfn "Invalid option"
-                   callerRequest()
-                                  
-                  
+                   callerRequest()                                  
+    
+    
     let rec followup()=
-        printfn "Were you referred to another agency?"
+        printfn "Did anyone follow up with you?"
         printfn "1 for Yes"
         printfn "2 for No"
         let reply = Console.ReadLine()
         match reply.Trim() with
-            | "1" -> 
-                     printfn "Did anyone follow up with you?"
-                     printfn "1 for Yes"
-                     printfn "2 for No"
-                     let reply = Console.ReadLine()
-                     match reply.Trim() with
-                         | "1" -> Followup true  
-                         | "2" -> Followup false
-                         | _ ->
-                                printfn "Invalid option"
-                                followup()
+            | "1" -> FollowedUp (helpbuilder())                     
                     
-            | "2" -> Followup false
+            | "2" -> NotFollowedUp  
             | _ -> printfn "Invalid option"
                    followup()
 
-    let rec helpbuilder():Help = 
-        printfn "Did you get the help you needed?"
-        printfn "1 for Yes"
-        printfn "2 for No"
+    and helpbuilder():Help = 
+        printfn "What kind of help did you get?"
+        printfn "Enter 1 if You got the help you needed"
+        printfn "Enter 2 if Not Helped and all options were exhausted"
+        printfn "Enter 3 if Denied Help"
+        printfn "Enter 4 if You were offered the WRONG help"
+        printfn "Enter 5 if You were Not Helped But Referred to another NGO"
         let response = Console.ReadLine()
         match response.Trim() with
             | "1" -> Helped
-            | "2" -> NotHelped (followup())
-                
+            | "2" -> RanOutOfHelps
+            | "3" -> NotHelped (followup())
+            | "4" -> WrongHelp (followup())
+            | "5" -> Referred (refbuilder())                
             | _ -> 
                    printfn "Invalid Option"
                    helpbuilder()
 
-    let rec refbuilder():CallerRefToOtherNgo =
-        printfn "What kind of angency were you referred to?"
-        printfn "1 for Sex Trafficking Victim Safehouse"
-        printfn "2 for Labor Trafficking Agency"
-        printfn "3 for Survivor Assistance Agency"
-        let response = Console.ReadLine()
-        match response.Trim() with
-            | "1" -> VictimSafehouse (helpbuilder())
-            | "2" -> LaborTraffickingNgo (helpbuilder())
-            | "3" -> SurvivorAssistanceNgo (helpbuilder())
-            | _ ->
-                printfn "Invalid Option"
-                refbuilder()
+    and refbuilder():CallerRefToOtherNgo =
+        let n = ngo()
+        let f = followup()
+        CallerRefToOtherNgo (f, n)            
+                
     
     let rec police_disp():PoliceDisp =
         printfn "Did police rescue victim? (Enter Y for Yes and N for No:"
         let reply = Console.ReadLine()
-        match reply with
+        match reply.Trim() with
             | "Y" -> VictimRescued
-            | "N" -> CopsNoShow (refbuilder())
+            | "N" -> CopsNoHelp (followup())
             | _ -> printfn "Invalid Selection"
                    police_disp()
 
-    let rec polaris_action():PolarisAction =
+    let rec call_outcome():CallOutcome =
         printfn "What help did Polaris provide?"
-        printfn "1 for 911 coordination and dispatch"
-        printfn "2 for Polaris referred me to another NGO"
-        printfn "3 for Polaris operator disconnected call"
-        printfn "4 for Polaris did not help me"
-        printfn "5 for Polaris provided direct help to me/victim/survivor"
+        printfn "Enter 1 for Polaris provided victim/survivor aid to me"
+        printfn "Enter 2 for Polaris operator dispatched 911"
+        printfn "Enter 3 for Polaris referred me to another NGO"
+        printfn "Enter 4 for Polaris did not help me"
+        printfn "Enter 5 for call to hotline got disconnected"
         let reply = Console.ReadLine()
-        match reply with
-            | "1" -> EmergencyResponse (police_disp())//need function to create a policedisp 
-            | "2" -> CallerRef (refbuilder())//need function that creates the ngo stuff
-            | "3" -> DisconnectCall
-            | "4" -> FailedToHelpCaller
-            | "5" -> ProvideDirectHelpToVictimOrSurvivor
+        match reply.Trim() with
+            | "1" -> ProvideDirectHelpToVictimOrSurvivor  
+            | "2" -> EmergencyResponse (police_disp())//need function that creates the ngo stuff
+            | "3" -> CallerRef (refbuilder())
+            | "4" -> FailedToHelpCaller (followup())
+            | "5" -> DisconnectCall (followup())
             | _ -> printfn "Invalid selection"
-                   polaris_action()
+                   call_outcome()
 
                    
