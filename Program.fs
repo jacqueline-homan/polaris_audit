@@ -5,10 +5,18 @@ open System.IO
 open Polaris.Types
 open Polaris.TerminalBuilder
 
+let help(h:Help) =
+    match h with
+    | Helped -> printfn "Got all the help requested and needed"
+    | RanOutOfHelps -> printfn "Exhausted all referrals and still not helped"
+    | NotHelped (fu) -> printfn "Denied help (possible discrimination?)"
+    | WrongHelp (fu) -> printfn "Offered help but not the help I needed"
+    | Referred(crngo) -> printfn "Not helped but referred to another NGO"
+
 let followupper(fu:Followup) =
     match fu with
     | NotFollowedUp -> printfn "No one followed up"
-    | FollowedUp(_) -> printfn "A caseworker followed up"
+    | FollowedUp(h) -> printfn "A caseworker followed up"
 
 let callerreftonextngo(CallerRefToOtherNgo(fu, ng)) =
     printfn "Caller referred to another NGO"
@@ -23,7 +31,7 @@ let outcome_of_poldisp(pd) =
         followupper(fu)
 
 
-let call_out(co:CallOutcome) =
+let call_out(co:CallOutcome) = //
     match co with
     | ProvideDirectHelpToVictimOrSurvivor -> printfn "Polaris directly helped victim or survivor"
     | EmergencyResponse (pd)  ->  
@@ -36,7 +44,7 @@ let call_out(co:CallOutcome) =
     | DisconnectCall (fu) -> 
         printfn "Call got disconnected"
         followupper(fu)
-    | FailedToHelpCaller (_) -> printfn "Was not helped"
+    | FailedToHelpCaller (fu) -> printfn "Was not helped"
 
 let caller_req(cr:CallerRequest) = //Done
     match cr with
