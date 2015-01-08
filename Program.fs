@@ -5,22 +5,36 @@ open System.IO
 open Polaris.Types
 open Polaris.TerminalBuilder
 
-let help(h:Help) =
+let rec ngoinfo(Ngo(cat, name)) =
+    match cat with
+        | VictimSafehouse -> printfn "Victim Safehouse: **%s**" name
+        | HomelessShelter -> printfn "Homeless Shelter: **%s**" name
+        | PovertyRelief -> printfn "Poverty Relief: **%s**" name
+        | MedicalDentalCare -> printfn "Medical and Dental Help: **%s**" name
+        | SurvivorAid -> printfn "Survivor Assistance: **%s**" name
+
+let rec help(h:Help) =
     match h with
     | Helped -> printfn "Got all the help requested and needed"
     | RanOutOfHelps -> printfn "Exhausted all referrals and still not helped"
     | NotHelped (fu) -> printfn "Denied help (possible discrimination?)"
+                        followupper(fu)
     | WrongHelp (fu) -> printfn "Offered help but not the help I needed"
+                        followupper(fu)
     | Referred(crngo) -> printfn "Not helped but referred to another NGO"
+                         callerreftonextngo(crngo)
+                         
 
-let followupper(fu:Followup) =
+and callerreftonextngo(CallerRefToOtherNgo(fu, ng)) =
+    printfn "Caller referred to another NGO:" 
+    ngoinfo(ng)
+    followupper(fu)
+
+and followupper(fu:Followup) =
     match fu with
     | NotFollowedUp -> printfn "No one followed up"
     | FollowedUp(h) -> printfn "A caseworker followed up"
-
-let callerreftonextngo(CallerRefToOtherNgo(fu, ng)) =
-    printfn "Caller referred to another NGO"
-    followupper(fu)
+                       help(h)
 
 
 let outcome_of_poldisp(pd) = 

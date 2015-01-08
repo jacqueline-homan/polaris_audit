@@ -32,16 +32,20 @@ module TerminalBuilder =
         printfn "Enter 4 for Survivor Medical and Dental Care"
         printfn "Enter 5 for General Survivor Aid" 
         let response = Console.ReadLine()
+        printfn "Enter the name of the NGO you were referred to:"
+        let resp = Console.ReadLine()
+        printfn "%s" resp
         match response.Trim() with
-            | "1" -> VictimSafehouse 
-            | "2" -> HomelessShelter
-            | "3" -> PovertyRelief
-            | "4" -> MedicalDentalCare
-            | "5" -> SurvivorAid
+            | "1" -> Ngo (VictimSafehouse, resp)
+            | "2" -> Ngo (HomelessShelter, resp)
+            | "3" -> Ngo(PovertyRelief, resp)
+            | "4" -> Ngo(MedicalDentalCare, resp)
+            | "5" -> Ngo (SurvivorAid, resp)
             | _ ->
                 printfn "Invalid Option"
                 ngo()
-    
+
+
     let rec callerRequest(): CallerRequest =
         printfn "Please enter what help you requested"
         printfn "Enter 1 for Victim Services"
@@ -64,7 +68,7 @@ module TerminalBuilder =
         match reply.Trim() with
             | "1" -> FollowedUp (helpbuilder())                     
                     
-            | "2" -> NotFollowedUp  
+            | "2" -> NotFollowedUp 
             | _ -> printfn "Invalid option"
                    followup()
 
@@ -88,7 +92,7 @@ module TerminalBuilder =
 
     and refbuilder():CallerRefToOtherNgo =
         let n = ngo()
-        let f = followup()
+        let f = followup()       
         CallerRefToOtherNgo (f, n)            
                 
     

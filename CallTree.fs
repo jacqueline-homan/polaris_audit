@@ -8,13 +8,16 @@ module Types =
         | Survivor
         | Advocate
 
-    type Ngo =
+    
+    type NgoType =
         | VictimSafehouse
         | HomelessShelter
         | PovertyRelief
         | MedicalDentalCare
         | SurvivorAid
 
+    type Ngo = Ngo of NgoType * string
+      
     type Followup =
         | NotFollowedUp // No one followed up with caller
         | FollowedUp of Help //Follow-upper obtains help or referral for caller
