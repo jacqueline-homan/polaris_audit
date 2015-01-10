@@ -2,6 +2,7 @@
 // See the 'F# Tutorial' project for more help.
 open System
 open System.IO
+open Newtonsoft.Json
 open Polaris.Types
 open Polaris.TerminalBuilder
 
@@ -35,6 +36,8 @@ and followupper(fu:Followup) =
     | NotFollowedUp -> printfn "No one followed up"
     | FollowedUp(h) -> printfn "A caseworker followed up"
                        help(h)
+    | CallerSelfFollow(h) -> printfn "Caller self-reporting/no caseworker followup"
+                             help(h)
 
 
 let outcome_of_poldisp(pd) = 
@@ -90,8 +93,21 @@ let main argv =
     let cr = (callerRequest())
     let co = (call_outcome())
     let ca = Call(c, cr,co)
-    call_info(ca)
+//    call_info(ca)
 
+    
+    let js = JsonConvert.SerializeObject(ca)
+ 
+    //printfn "%s" js
+
+    //automatically generates a json file
+    use w = new StreamWriter("test.json", false)
+    w.Write(js) 
+ 
+    let ca2 = JsonConvert.DeserializeObject<Call>(js)
+    call_info(ca2)
+     
+     
 
 //    printfn "%A" argv
     0 // return an integer exit code

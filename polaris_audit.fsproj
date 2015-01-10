@@ -25,6 +25,11 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.7\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
@@ -40,5 +45,7 @@
   <ItemGroup>
     <None Include="DataTreeModel.doc\Polaris data chart part 1.pdf" />
     <None Include="DataTreeModel.doc\Polaris data chart part 2.pdf" />
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

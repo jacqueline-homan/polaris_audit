@@ -64,11 +64,13 @@ module TerminalBuilder =
         printfn "Did anyone follow up with you?"
         printfn "1 for Yes"
         printfn "2 for No"
+        printfn "3 for self-reporting/no caseworker followup"
         let reply = Console.ReadLine()
         match reply.Trim() with
             | "1" -> FollowedUp (helpbuilder())                     
                     
-            | "2" -> NotFollowedUp 
+            | "2" -> NotFollowedUp
+            | "3" -> CallerSelfFollow (helpbuilder())
             | _ -> printfn "Invalid option"
                    followup()
 

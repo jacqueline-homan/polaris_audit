@@ -21,6 +21,7 @@ module Types =
     type Followup =
         | NotFollowedUp // No one followed up with caller
         | FollowedUp of Help //Follow-upper obtains help or referral for caller
+        | CallerSelfFollow of Help // Victim/survivor left to navigate on own
          
 
     and Help = //Whether the NGO Polaris referred callerr to helped caller
