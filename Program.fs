@@ -59,6 +59,7 @@ let call_out(co:CallOutcome) = //
         printfn "Call got disconnected"
         followupper(fu)
     | FailedToHelpCaller (fu) -> printfn "Was not helped"
+                                 followupper(fu)
 
 let caller_req(cr:CallerRequest) = //Done
     match cr with
