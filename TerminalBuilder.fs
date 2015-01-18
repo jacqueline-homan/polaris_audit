@@ -45,6 +45,26 @@ module TerminalBuilder =
                 printfn "Invalid Option"
                 ngo()
 
+    let rec needs()=
+        printfn "What unmet need(s) did you request help with?"
+        printfn "Enter one or more of these:"
+        printfn "Dental, Medical, Vison, Hearing"
+        printfn "Trauma Therapy, Income Support, Permanent Housing"
+        printfn "Educational Help, Skills Training, Job Placement"
+        let response = Console.ReadLine()
+        match response.Trim().ToLower() with
+        | "dental" -> Dental
+        | "medical" -> Medical
+        | "vison" -> Vison
+        | "hearing" -> Hearing
+        | "trauma therapy" -> TraumaTherapy
+        | "income support" -> IncomeSupport
+        | "permanent housing" -> PermanentHousing
+        | "educational help" -> EducationHelp
+        | "skills training" -> SkillsTraining
+        | "job placement" -> JobPlacement
+        | _ -> printfn "Invalid entry"
+               needs()
 
     let rec callerRequest(): CallerRequest =
         printfn "Please enter what help you requested"
@@ -54,12 +74,13 @@ module TerminalBuilder =
         let answer = Console.ReadLine()
         match answer with
             | "1" -> VictimServices 
-            | "2" -> SurvivorAssistance
+            | "2" -> SurvivorAssistance (needs())
             | "3" -> PoliceDispatch
             | _ -> printfn "Invalid option"
                    callerRequest()                                  
     
-    
+   
+
     let rec followup()=
         printfn "Did anyone follow up with you?"
         printfn "1 for Yes"

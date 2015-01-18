@@ -1,6 +1,17 @@
 ﻿namespace Polaris
 
 module Types =
+    type RequestedNeeds =
+        | Dental
+        | Medical
+        | Vison
+        | Hearing
+        | TraumaTherapy
+        | IncomeSupport
+        | PermanentHousing
+        | EducationHelp
+        | SkillsTraining
+        | JobPlacement
 
 
     type Caller =
@@ -52,7 +63,7 @@ module Types =
     type CallerRequest =
         | PoliceDispatch //911 coordination for trafficking in progress
         | VictimServices //emergency shelter in victim safehouse
-        | SurvivorAssistance //aid for destitute survivor
+        | SurvivorAssistance of RequestedNeeds//aid for destitute survivor
       
 
     type Call = Call of Caller * CallerRequest * CallOutcome 

@@ -2,7 +2,12 @@
 // See the 'F# Tutorial' project for more help.
 open System
 open System.IO
+open System.Data
+open System.Data.SqlClient
+open System.Data.Linq
+open Microsoft.FSharp.Data
 open Newtonsoft.Json
+open Polaris.PolarisSux
 open Polaris.Types
 open Polaris.TerminalBuilder
 
@@ -64,11 +69,25 @@ let call_out(co:CallOutcome) = //
     | FailedToHelpCaller (fu) -> printfn "Was not helped"
                                  followupper(fu)
 
+let fx(rn:RequestedNeeds)=
+    match rn with
+    | Dental -> printfn "Dental"
+    | Medical -> printfn "Medical"
+    | Vison -> printfn "Vison"
+    | Hearing -> printfn "Hearing"
+    | TraumaTherapy -> printfn "Trauma Therapy"
+    | IncomeSupport -> printfn "Income Support"
+    | PermanentHousing -> printfn "Pernament Housing"
+    | EducationHelp -> printfn "Education Help"
+    | SkillsTraining -> printfn "Skills Training"
+    | JobPlacement  -> printfn "Job Placement"
+
 let caller_req(cr:CallerRequest) = //Done
     match cr with
     | PoliceDispatch -> printfn "911 dispatch to rescue victim"
     | VictimServices -> printfn "Victim Services"
-    | SurvivorAssistance -> printfn "Survivor Aid"
+    | SurvivorAssistance(rn) -> printfn "Survivor Aid"
+                                fx(rn)
 
 
 let caller_info(c:Caller) = //Done
@@ -91,6 +110,7 @@ let call_info(Call(ca, cr, co)) = //Done
 let main argv = 
     let c = (caller())
     let cr = (callerRequest())
+    //let rn = (needs())
     let co = (call_outcome())
     let ca = Call(c, cr,co)
 //    call_info(ca)
