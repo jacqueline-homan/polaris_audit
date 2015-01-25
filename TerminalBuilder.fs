@@ -45,26 +45,40 @@ module TerminalBuilder =
                 printfn "Invalid Option"
                 ngo()
 
-    let rec needs()=
-        printfn "What unmet need(s) did you request help with?"
-        printfn "Enter one or more of these:"
-        printfn "Dental, Medical, Vison, Hearing"
-        printfn "Trauma Therapy, Income Support, Permanent Housing"
-        printfn "Educational Help, Skills Training, Job Placement"
-        let response = Console.ReadLine()
-        match response.Trim().ToLower() with
-        | "dental" -> Dental
-        | "medical" -> Medical
-        | "vison" -> Vison
-        | "hearing" -> Hearing
-        | "trauma therapy" -> TraumaTherapy
-        | "income support" -> IncomeSupport
-        | "permanent housing" -> PermanentHousing
-        | "educational help" -> EducationHelp
-        | "skills training" -> SkillsTraining
-        | "job placement" -> JobPlacement
-        | _ -> printfn "Invalid entry"
-               needs()
+    let needs():Set<RequestedNeeds> =
+        let rec nds(s:Set<RequestedNeeds>):Set<RequestedNeeds> = 
+            printfn "What unmet need(s) did you request help with?"
+            printfn "Enter one or more of these:"
+            printfn "Legal, Dental, Medical, Vison, Hearing"
+            printfn "Trauma Therapy, Income Support, Permanent Housing"
+            printfn "Educational Help, Skills Training, Job Placement"
+            printfn "Enter 'Done' when finished"
+            let response = Console.ReadLine()
+            match response.Trim().ToLower() with
+            | "done" -> s
+            | _ ->
+                let n =
+                    match response.Trim().ToLower() with
+                    | "legal" -> Some Legal
+                    | "dental" -> Some Dental
+                    | "medical" -> Some Medical
+                    | "vison" -> Some Vison
+                    | "hearing" -> Some Hearing
+                    | "trauma therapy" -> Some TraumaTherapy
+                    | "income support" -> Some IncomeSupport
+                    | "permanent housing" -> Some PermanentHousing
+                    | "educational help" -> Some EducationHelp
+                    | "skills training" -> Some SkillsTraining
+                    | "job placement" -> Some JobPlacement
+                    | _ -> printfn "Invalid entry"
+                           None
+                match n with
+                | None -> nds(s)
+                | Some(x) -> nds(s.Add(x))
+                             
+        
+        nds(new Set<RequestedNeeds>([]))
+         
 
     let rec callerRequest(): CallerRequest =
         printfn "Please enter what help you requested"

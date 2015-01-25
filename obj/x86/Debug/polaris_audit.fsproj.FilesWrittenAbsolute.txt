@@ -1,9 +1,4 @@
 /home/jacqueline/F-sharp/polaris_audit/polaris_audit/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.fs
-/home/jacqueline/F-sharp/polaris_audit/polaris_audit/bin/Debug/polaris_audit.exe.config
-/home/jacqueline/F-sharp/polaris_audit/polaris_audit/bin/Debug/polaris_audit.exe.mdb
-/home/jacqueline/F-sharp/polaris_audit/polaris_audit/bin/Debug/polaris_audit.exe
-/home/jacqueline/F-sharp/polaris_audit/polaris_audit/obj/x86/Debug/polaris_audit.exe
-/home/jacqueline/F-sharp/polaris_audit/polaris_audit/obj/x86/Debug/polaris_audit.exe.mdb
 /home/jacqueline/F-sharp/polaris_audit/polaris_audit/bin/Debug/linq2db.dll
 /home/jacqueline/F-sharp/polaris_audit/polaris_audit/bin/Debug/Newtonsoft.Json.dll
 /home/jacqueline/F-sharp/polaris_audit/polaris_audit/bin/Debug/Mono.Security.dll
@@ -11,3 +6,8 @@
 /home/jacqueline/F-sharp/polaris_audit/polaris_audit/bin/Debug/EntityFramework.dll
 /home/jacqueline/F-sharp/polaris_audit/polaris_audit/bin/Debug/EntityFramework.SqlServer.dll
 /home/jacqueline/F-sharp/polaris_audit/polaris_audit/bin/Debug/Npgsql.EntityFramework.dll
+/home/jacqueline/F-sharp/polaris_audit/polaris_audit/bin/Debug/polaris_audit.exe.config
+/home/jacqueline/F-sharp/polaris_audit/polaris_audit/bin/Debug/polaris_audit.exe.mdb
+/home/jacqueline/F-sharp/polaris_audit/polaris_audit/bin/Debug/polaris_audit.exe
+/home/jacqueline/F-sharp/polaris_audit/polaris_audit/obj/x86/Debug/polaris_audit.exe
+/home/jacqueline/F-sharp/polaris_audit/polaris_audit/obj/x86/Debug/polaris_audit.exe.mdb

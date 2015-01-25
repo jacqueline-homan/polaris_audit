@@ -1,7 +1,11 @@
 ﻿namespace Polaris
 
-module Types =
+open System.Collections
+
+module Types =    
+
     type RequestedNeeds =
+        | Legal
         | Dental
         | Medical
         | Vison
@@ -12,6 +16,7 @@ module Types =
         | EducationHelp
         | SkillsTraining
         | JobPlacement
+
 
 
     type Caller =
@@ -63,7 +68,7 @@ module Types =
     type CallerRequest =
         | PoliceDispatch //911 coordination for trafficking in progress
         | VictimServices //emergency shelter in victim safehouse
-        | SurvivorAssistance of RequestedNeeds//aid for destitute survivor
+        | SurvivorAssistance of  Set<RequestedNeeds> //aid for destitute survivor
       
 
     type Call = Call of Caller * CallerRequest * CallOutcome 

@@ -69,25 +69,27 @@ let call_out(co:CallOutcome) = //
     | FailedToHelpCaller (fu) -> printfn "Was not helped"
                                  followupper(fu)
 
-let fx(rn:RequestedNeeds)=
-    match rn with
-    | Dental -> printfn "Dental"
-    | Medical -> printfn "Medical"
-    | Vison -> printfn "Vison"
-    | Hearing -> printfn "Hearing"
-    | TraumaTherapy -> printfn "Trauma Therapy"
-    | IncomeSupport -> printfn "Income Support"
-    | PermanentHousing -> printfn "Pernament Housing"
-    | EducationHelp -> printfn "Education Help"
-    | SkillsTraining -> printfn "Skills Training"
-    | JobPlacement  -> printfn "Job Placement"
+let fx(rn:Set<RequestedNeeds>)=
+    Seq.iter(fun x ->
+        match x with
+        | Legal -> printfn "Legal"
+        | Dental -> printfn "Dental"
+        | Medical -> printfn "Medical"
+        | Vison -> printfn "Vison"
+        | Hearing -> printfn "Hearing"
+        | TraumaTherapy -> printfn "Trauma Therapy"
+        | IncomeSupport -> printfn "Income Support"
+        | PermanentHousing -> printfn "Pernament Housing"
+        | EducationHelp -> printfn "Education Help"
+        | SkillsTraining -> printfn "Skills Training"
+        | JobPlacement  -> printfn "Job Placement") (rn)
 
 let caller_req(cr:CallerRequest) = //Done
     match cr with
     | PoliceDispatch -> printfn "911 dispatch to rescue victim"
     | VictimServices -> printfn "Victim Services"
     | SurvivorAssistance(rn) -> printfn "Survivor Aid"
-                                fx(rn)
+                                fx(rn) 
 
 
 let caller_info(c:Caller) = //Done
