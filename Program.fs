@@ -22,6 +22,7 @@ let rec ngoinfo(Ngo(cat, name)) =
 let rec help(h:Help) =
     match h with
     | Helped -> printfn "Got all the help requested and needed"
+    | HelpFail -> printfn "Was abused or re-exploited at safehouse"
     | RanOutOfHelps -> printfn "Exhausted all referrals and still not helped"
     | NotHelped (fu) -> printfn "Denied help (possible discrimination?)"
                         followupper(fu)
@@ -110,15 +111,18 @@ let call_info(Call(ca, cr, co)) = //Done
 
 [<EntryPoint>]
 let main argv = 
+    let r = (reporter())
     let c = (caller())
     let cr = (callerRequest())
     //let rn = (needs())
     let co = (call_outcome())
     let ca = Call(c, cr,co)
+    let ci = call_info(Call(c, cr, co))
 //    call_info(ca)
-
+    
     
     let js = JsonConvert.SerializeObject(ca)
+    //let xm = 
  
     //printfn "%s" js
 

@@ -28,17 +28,8 @@
     <Reference Include="System.Numerics" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="linq2db">
-      <HintPath>..\packages\linq2db.1.0.6\lib\net45\linq2db.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Security">
-      <HintPath>..\packages\Npgsql.2.2.3\lib\net45\Mono.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Npgsql">
-      <HintPath>..\packages\Npgsql.2.2.3\lib\net45\Npgsql.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
@@ -46,11 +37,20 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Npgsql.EntityFramework">
-      <HintPath>..\packages\Npgsql.EntityFramework.2.2.3\lib\net45\Npgsql.EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="linq2db">
+      <HintPath>..\packages\linq2db.1.0.7\lib\net45\linq2db.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Security">
+      <HintPath>..\packages\Npgsql.2.2.4.3\lib\net45\Mono.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql">
+      <HintPath>..\packages\Npgsql.2.2.4.3\lib\net45\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql.EntityFramework">
+      <HintPath>..\packages\Npgsql.EntityFramework.2.2.4.3\lib\net45\Npgsql.EntityFramework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
@@ -70,6 +70,8 @@
     <None Include="DataTreeModel.doc\Polaris data chart part 2.pdf" />
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="LinqToDB.Templates\LinqToDB.PostgreSQL.Tools.ttinclude" />
+    <None Include="LinqToDB.Templates\CopyMe.PostgreSQL.tt.txt" />
     <None Include="LinqToDB.Templates\!ReadMe.LinqToDB.md" />
     <None Include="LinqToDB.Templates\DataAnnotations.ttinclude" />
     <None Include="LinqToDB.Templates\DataModel.ttinclude" />
@@ -91,7 +93,6 @@
     <None Include="LinqToDB.Templates\T4Model.ttinclude" />
     <None Include="LinqToDB.Templates\Validation.ttinclude" />
     <None Include="LinqToDB.Templates\LinqToDB.Tools.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.PostgreSQL.Tools.ttinclude" />
-    <None Include="LinqToDB.Templates\CopyMe.PostgreSQL.tt.txt" />
+    <None Include="EmptyTextFile.txt" />
   </ItemGroup>
 </Project>

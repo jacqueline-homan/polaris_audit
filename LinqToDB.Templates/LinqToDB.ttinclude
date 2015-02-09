@@ -10,10 +10,14 @@
 Action BeforeGenerateLinqToDBModel = () => {};
 Action AfterGenerateLinqToDBModel  = () => {};
 
-bool GenerateObsoleteAttributeForAliases;
+Func<Table,MemberBase> GenerateProviderSpecificTable = t => null;
+
+bool GenerateObsoleteAttributeForAliases = false;
 bool GenerateFindExtensions = true;
 bool IsCompactColumns       = true;
 bool IsCompactColumnAliases = true;
+bool GenerateDataTypes      = false;
+bool GenerateDbTypes        = false;
 
 void GenerateTypesFromMetadata()
 {
@@ -47,13 +51,17 @@ void GenerateTypesFromMetadata()
 	if (Tables.Count > 0)
 		DataContextObject.Members.Insert(0, props);
 
-	foreach (var t in Tables.Values.OrderBy(tbl => tbl.TypeName))
+	foreach (var t in Tables.Values.OrderBy(tbl => tbl.IsProviderSpecific).ThenBy(tbl=> tbl.TypeName))
 	{
-		var dcProp = new Property(
-			string.Format("ITable<{0}>", t.TypeName),
-			t.DataContextPropertyName,
-			new[] { string.Format("this.GetTable<{0}>()", t.TypeName) },
-			null);
+		MemberBase dcProp = t.IsProviderSpecific ?
+			GenerateProviderSpecificTable(t) :
+			new Property(
+				string.Format("ITable<{0}>", t.TypeName),
+				t.DataContextPropertyName,
+				new[] { string.Format("this.GetTable<{0}>()", t.TypeName) },
+				null);
+
+		if (dcProp == null) continue;
 
 		props.Members.Add(dcProp);
 
@@ -104,10 +112,13 @@ void GenerateTypesFromMetadata()
 				aProp.Comment.AddRange(comments);
 		}
 
-		var columns       = new MemberGroup { IsCompact = IsCompactColumns };
-		var columnAliases = new MemberGroup { IsCompact = IsCompactColumnAliases, Region = "Alias members" };
-		var nPKs          = t.Columns.Values.Count(c => c.IsPrimaryKey);
-		var allNullable   = t.Columns.Values.All  (c => c.IsNullable || c.IsIdentity);
+		var columns        = new MemberGroup { IsCompact = IsCompactColumns };
+		var columnAliases  = new MemberGroup { IsCompact = IsCompactColumnAliases, Region = "Alias members" };
+		var nPKs           = t.Columns.Values.Count(c => c.IsPrimaryKey);
+		var allNullable    = t.Columns.Values.All  (c => c.IsNullable || c.IsIdentity);
+		var nameMaxLen     = t.Columns.Values.Max  (c => c.MemberName == c.ColumnName ? 0 : c.ColumnName.Length);
+		var dbTypeMaxLen   = t.Columns.Values.Max  (c => c.ColumnType.Length);
+		var dataTypeMaxLen = t.Columns.Values.Max  (c => c.DataType.Length);
 
 		foreach (var c in t.Columns.Values)
 		{
@@ -118,7 +129,35 @@ void GenerateTypesFromMetadata()
 
 			if (c.MemberName != c.ColumnName)
 			{
-				ca.Parameters.Add('"' + c.ColumnName + '"');
+				var space = new string(' ', nameMaxLen - c.ColumnName.Length);
+
+				ca.Parameters.Add('"' + c.ColumnName + '"' + space);
+				canBeReplaced = false;
+			}
+			else if (nameMaxLen > 0)
+			{
+				ca.Parameters.Add(new string(' ', nameMaxLen + 2));
+				canBeReplaced = false;
+			}
+
+			if (GenerateDbTypes)
+			{
+				var space = new string(' ', dbTypeMaxLen - c.ColumnType.Length);
+
+				ca.Parameters.Add("DbType=\"" + c.ColumnType + '"' + space);
+				canBeReplaced = false;
+			}
+
+			if (GenerateDataTypes)
+			{
+				var space = new string(' ', dataTypeMaxLen - c.DataType.Length);
+
+				ca.Parameters.Add("DataType=" + c.DataType + space);
+
+				if (c.Length    != null) ca.Parameters.Add("Length="    + (c.Length == int.MaxValue ? "int.MaxValue" : c.Length.ToString()));
+				if (c.Precision != null) ca.Parameters.Add("Precision=" + c.Precision);
+				if (c.Scale     != null) ca.Parameters.Add("Scale="     + c.Scale);
+
 				canBeReplaced = false;
 			}
 
@@ -250,6 +289,16 @@ void GenerateTypesFromMetadata()
 					aa.Parameters.Add("OtherKey=\""  + string.Join(", ", (from c in key.OtherColumns select c.MemberName).ToArray()) + "\"");
 					aa.Parameters.Add("CanBeNull=" + (key.CanBeNull ? "true" : "false"));
 
+					if (key.BackReference != null)
+					{
+						if (!string.IsNullOrEmpty(key.KeyName))
+							aa.Parameters.Add("KeyName=\"" + key.KeyName + "\"");
+					}
+					else
+					{
+						aa.Parameters.Add("IsBackReference=true");
+					}
+
 					key.Attributes.Add(aa);
 
 					SetPropertyValue(key, "IsNotifying", true);
@@ -315,23 +364,28 @@ void GenerateTypesFromMetadata()
 		var funcs = new MemberGroup();
 		var tabfs = new MemberGroup { Region = "Table Functions" };
 
-		foreach (var p in Procedures.Values)
+		foreach (var p in Procedures.Values.Where(proc => proc.IsLoaded))
 		{
-			if (p.ResultTable == null && p.ResultException != null)
-				continue;
-
 			var proc = new MemberGroup { Region = p.Name };
 
 			if (p.IsTableFunction)
 			{
-				p.Attributes.Add(new Attribute("Sql.TableFunction", "Name=\"" + p.ProcedureName + "\""));
+				var tableAttrs = new List<string>();
+
+				if (DatabaseName != null) tableAttrs.Add("Database=" + '"' + DatabaseName + '"');
+				if (p.Schema     != null) tableAttrs.Add("Schema="   + '"' + p.Schema     + '"');
+
+				tableAttrs.Add("Name=" + '"' + p.ProcedureName + '"');
+
+				p.Attributes.Add(new Attribute("Sql.TableFunction", tableAttrs.ToArray()));
+
 				p.Type = "ITable<" + p.ResultTable.TypeName + ">";
 			}
 			else if (p.IsFunction)
 			{
 				p.IsStatic = true;
 				p.Type = p.ProcParameters.Single(pr => pr.IsResult).ParameterType;
-				p.Attributes.Add(new Attribute("Sql.Function", "Name=\"" + p.ProcedureName + "\"", "ServerSideOnly=true"));
+				p.Attributes.Add(new Attribute("Sql.Function", "Name=\"" + p.Schema + "."  + p.ProcedureName + "\"", "ServerSideOnly=true"));
 			}
 			else
 			{
@@ -361,14 +415,15 @@ void GenerateTypesFromMetadata()
 			}
 			else
 			{
-				var spName = "\"" + 
+				var spName = 
 					SqlBuilder.BuildTableName(
 						new System.Text.StringBuilder(),
 						(string)SqlBuilder.Convert(DatabaseName,    LinqToDB.SqlProvider.ConvertType.NameToDatabase),
 						(string)SqlBuilder.Convert(p.Schema,        LinqToDB.SqlProvider.ConvertType.NameToOwner),
 						(string)SqlBuilder.Convert(p.ProcedureName, LinqToDB.SqlProvider.ConvertType.NameToQueryTable)
-					).ToString() +
-					 "\"";
+					).ToString();
+
+				spName = "\"" + spName.Replace("\"", "\\\"") + "\"";
 
 				var inputParameters  = p.ProcParameters.Where(pp => pp.IsIn). ToList();
 				var outputParameters = p.ProcParameters.Where(pp => pp.IsOut).ToList();
@@ -411,20 +466,22 @@ void GenerateTypesFromMetadata()
 
 				var maxLenSchema = inputParameters.Max(pr => (int?)pr.SchemaName.   Length) ?? 0;
 				var maxLenParam  = inputParameters.Max(pr => (int?)pr.ParameterName.Length) ?? 0;
-				var maxLenType   = inputParameters.Max(pr => (int?)pr.ParameterType.Length) ?? 0;
+				var maxLenType   = inputParameters.Max(pr => (int?)("DataType." + pr.DataType).Length) ?? 0;
 
 				for (var i = 0; i < inputParameters.Count; i++)
 				{
 					var pr = inputParameters[i];
 
-					var str = string.Format("\tnew DataParameter(\"{0}\", {1}{2})",
+					var str = string.Format("\tnew DataParameter(\"{0}\", {1}{2}, {3}{4})",
 						pr.SchemaName,
 						LenDiff(maxLenSchema, pr.SchemaName),
-						pr.ParameterName);
+						pr.ParameterName,
+						LenDiff(maxLenParam, pr.ParameterName),
+						"DataType." + pr.DataType);
 
 					if (pr.IsOut)
 					{
-						str += LenDiff(maxLenParam, pr.ParameterName);
+						str += LenDiff(maxLenType, "DataType." + pr.DataType);
 						str += " { Direction = " + (pr.IsIn ? "ParameterDirection.InputOutput" : "ParameterDirection.Output");
 
 						if (pr.Size != null && pr.Size.Value != 0)

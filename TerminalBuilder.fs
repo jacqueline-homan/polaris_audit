@@ -9,7 +9,6 @@ module TerminalBuilder =
 //        printfn "%s" header
 //        let digits = [1..options.Length]
 //        Seq.iter((function (i,o) -> printfn "%d %s" i o)
-                
 
     let rec caller():Caller =
         printfn "Are you reporting as a victim, survivor, or advocate?"
@@ -19,10 +18,34 @@ module TerminalBuilder =
         let response = Console.ReadLine()
         match response.Trim() with
             | "1" -> Victim
-            | "2" -> Survivor
+            | "2" -> Survivor 
             | "3" -> Advocate
             | _ -> printfn "Invalid Response"
                    caller()
+                
+    let rec reporter():Reporter =
+        printfn "Are you reporting as a survivor that sought employment?"
+        printfn "Enter 1 if you contacted an NGO as a Job Applicant"
+        printfn "Enter 2 if you contacted an NGO as a Contractor/Consultant"
+        printfn "Enter 3 if you contacted an NGO as a Survivor-Owned Vendor"
+        printfn "Enter 4 if you contacted an NGO for help and an NGO for a job"
+        let answer = Console.ReadLine()
+        printfn "Enter the job title you applied for:"
+        let ans = Console.ReadLine()
+        printfn "Enter the name of the NGO you applied for a job at:"
+        let rep = Console.ReadLine()
+        printfn "%s %s" rep ans
+        //let reply = Console.ReadLine()
+        match answer.Trim() with
+            | "1" -> SurvivorJobseeker
+            | "2" -> SurvivorContractor
+            | "3" -> SurvivorOwnedFirm
+            | "4" -> HelpseekerAndJobseeker                       
+            | _ -> printfn "Invalid Entry"
+                   reporter()
+
+
+   
 
     let rec ngo():Ngo =
         printfn "What kind of NGO were you referred to?"
@@ -48,7 +71,7 @@ module TerminalBuilder =
     let needs():Set<RequestedNeeds> =
         let rec nds(s:Set<RequestedNeeds>):Set<RequestedNeeds> = 
             printfn "What unmet need(s) did you request help with?"
-            printfn "Enter one or more of these:"
+            printfn "Enter one of these then hit 'Enter' and add another:"
             printfn "Legal, Dental, Medical, Vison, Hearing"
             printfn "Trauma Therapy, Income Support, Permanent Housing"
             printfn "Educational Help, Skills Training, Job Placement"
@@ -56,7 +79,7 @@ module TerminalBuilder =
             let response = Console.ReadLine()
             match response.Trim().ToLower() with
             | "done" -> s
-            | _ ->
+            | _ -> 
                 let n =
                     match response.Trim().ToLower() with
                     | "legal" -> Some Legal
@@ -112,17 +135,19 @@ module TerminalBuilder =
     and helpbuilder():Help = 
         printfn "What kind of help did you get?"
         printfn "Enter 1 if You got the help you needed"
-        printfn "Enter 2 if Not Helped and all options were exhausted"
-        printfn "Enter 3 if Denied Help"
-        printfn "Enter 4 if You were offered the WRONG help"
-        printfn "Enter 5 if You were Not Helped But Referred to another NGO"
+        printfn "Enter 2 if Re-exploited or abused at safehouse"
+        printfn "Enter 3 if Not Helped and all options were exhausted"
+        printfn "Enter 4 if Denied Help"
+        printfn "Enter 5 if You were offered the WRONG help"
+        printfn "Enter 6 if You were Not Helped But Referred to another NGO"
         let response = Console.ReadLine()
         match response.Trim() with
             | "1" -> Helped
-            | "2" -> RanOutOfHelps
-            | "3" -> NotHelped (followup())
-            | "4" -> WrongHelp (followup())
-            | "5" -> Referred (refbuilder())                
+            | "2" -> HelpFail
+            | "3" -> RanOutOfHelps
+            | "4" -> NotHelped (followup())
+            | "5" -> WrongHelp (followup())
+            | "6" -> Referred (refbuilder())                
             | _ -> 
                    printfn "Invalid Option"
                    helpbuilder()

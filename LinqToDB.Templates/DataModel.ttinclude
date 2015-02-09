@@ -1,5 +1,6 @@
 <#@ assembly name="System.Data"      #>
 <#@ import namespace="System.Data"   #>
+<#@ import namespace="LinqToDB.SchemaProvider"   #>
 <#@ import namespace="LinqToDB.Data" #>
 <#@ include file="T4Model.ttinclude" #>
 <#
@@ -45,6 +46,8 @@ LinqToDB.SchemaProvider.GetSchemaOptions GetSchemaOptions =
 
 LinqToDB.SqlProvider.ISqlBuilder SqlBuilder;
 
+Func<TableSchema,Table> LoadProviderSpecificTable = tableSchema => null;
+
 void LoadServerMetadata(DataConnection dataConnection)
 {
 	SqlBuilder = dataConnection.DataProvider.CreateSqlBuilder();
@@ -65,6 +68,7 @@ void LoadServerMetadata(DataConnection dataConnection)
 	DataContextObject.Comment.Add("/ </summary>");
 
 	var tables = db.Tables
+		.Where(t => !t.IsProviderSpecific)
 		.Select(t => new
 		{
 			t,
@@ -81,6 +85,7 @@ void LoadServerMetadata(DataConnection dataConnection)
 					PluralizeDataContextPropertyNames   ? ToPlural  (t.TypeName) :
 					SingularizeDataContextPropertyNames ? ToSingular(t.TypeName) : t.TypeName,
 				IsView                  = t.IsView,
+				IsProviderSpecific      = false,
 				Description             = t.Description,
 				Columns                 = t.Columns.ToDictionary(
 					c => c.ColumnName,
@@ -88,6 +93,10 @@ void LoadServerMetadata(DataConnection dataConnection)
 					{
 						ColumnName      = c.ColumnName,
 						ColumnType      = c.ColumnType,
+						DataType        = "DataType." + c.DataType,
+						Length          = c.Length,
+						Precision       = c.Precision,
+						Scale           = c.Scale,
 						IsNullable      = c.IsNullable,
 						IsIdentity      = c.IsIdentity,
 						IsPrimaryKey    = c.IsPrimaryKey,
@@ -101,6 +110,16 @@ void LoadServerMetadata(DataConnection dataConnection)
 			}
 		})
 		.ToList();
+
+	tables.AddRange(db.Tables
+		.Where(t => t.IsProviderSpecific)
+		.Select(t => new
+		{
+			t,
+			key = t.IsDefaultSchema ? t.TableName : t.SchemaName + "." + t.TableName,
+			table = LoadProviderSpecificTable(t)
+		})
+		.Where(t => t.table != null));
 
 	foreach (var t in tables)
 		Tables.Add(t.key, t.table);
@@ -152,6 +171,7 @@ void LoadServerMetadata(DataConnection dataConnection)
 				IsFunction      = p.IsFunction,
 				IsTableFunction = p.IsTableFunction,
 				IsDefaultSchema = p.IsDefaultSchema,
+				IsLoaded        = p.IsLoaded,
 				ResultTable     = p.ResultTable == null ? null :
 					new Table
 					{
@@ -245,6 +265,8 @@ string CheckType(Type type, string typeName)
 	return typeName;
 }
 
+Action AfterLoadMetadata = () => {};
+
 void LoadMetadata(DataConnection dataConnection)
 {
 	if (DataContextObject == null)
@@ -293,6 +315,8 @@ void LoadMetadata(DataConnection dataConnection)
 				col.MemberName += "_Column";
 		}
 	}
+
+	AfterLoadMetadata();
 }
 
 string ConvertToCompilable(string name)
@@ -454,6 +478,7 @@ public partial class Table : Class
 	public string TableName               { get; set; }
 	public string DataContextPropertyName { get; set; }
 	public bool   IsView                  { get; set; }
+	public bool   IsProviderSpecific      { get; set; }
 	public string Description             { get; set; }
 	public string AliasPropertyName       { get; set; }
 	public string AliasTypeName           { get; set; }
@@ -474,6 +499,10 @@ public partial class Column : Property
 	public bool      IsNullable;
 	public bool      IsIdentity;
 	public string    ColumnType; // Type of the column in database
+	public string    DataType;
+	public long?     Length;
+	public int?      Precision;
+	public int?      Scale;
 	public DbType    DbType;
 	public string    Description;
 	public bool      IsPrimaryKey;
@@ -542,6 +571,7 @@ public partial class Procedure : Method
 	public bool   IsFunction      { get; set; }
 	public bool   IsTableFunction { get; set; }
 	public bool   IsDefaultSchema { get; set; }
+	public bool   IsLoaded        { get; set; }
 
 	public Table           ResultTable     { get; set; }
 	public Exception       ResultException { get; set; }
@@ -556,7 +586,7 @@ public class Parameter
 	public bool     IsIn          { get; set; }
 	public bool     IsOut         { get; set; }
 	public bool     IsResult      { get; set; }
-	public int?     Size          { get; set; }
+	public long?    Size          { get; set; }
 
 	public string   ParameterName { get; set; }
 	public string   ParameterType { get; set; }
