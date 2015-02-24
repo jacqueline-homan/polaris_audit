@@ -39,6 +39,12 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
+<<<<<<< HEAD
+    <Reference Include="linq2db">
+      <HintPath>..\packages\linq2db.1.0.7\lib\net45\linq2db.dll</HintPath>
+    </Reference>
+=======
+>>>>>>> dev
     <Reference Include="Mono.Security">
       <HintPath>..\packages\Npgsql.2.2.4.3\lib\net45\Mono.Security.dll</HintPath>
     </Reference>
@@ -48,9 +54,12 @@
     <Reference Include="Npgsql.EntityFramework">
       <HintPath>..\packages\Npgsql.EntityFramework.2.2.4.3\lib\net45\Npgsql.EntityFramework.dll</HintPath>
     </Reference>
+<<<<<<< HEAD
+=======
     <Reference Include="linq2db">
       <HintPath>..\packages\linq2db.1.0.7\lib\net45\linq2db.dll</HintPath>
     </Reference>
+>>>>>>> dev
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
@@ -93,5 +102,9 @@
     <None Include="LinqToDB.Templates\T4Model.ttinclude" />
     <None Include="LinqToDB.Templates\Validation.ttinclude" />
     <None Include="LinqToDB.Templates\LinqToDB.Tools.ttinclude" />
+<<<<<<< HEAD
+    <None Include="EmptyTextFile.txt" />
+=======
+>>>>>>> dev
   </ItemGroup>
 </Project>

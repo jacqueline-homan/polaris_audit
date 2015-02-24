@@ -1,0 +1,53 @@
+﻿
+type SpeakerFees =
+        | NotPaid
+        | PaidAsAgreed
+        | PaidLessThanAgreed
+
+
+    type NgoJobs =
+        | NotHired
+        | Speaker of SpeakerFees
+        | Counselor
+        | Administrator
+        | ProgramDirector
+        | IT
+        | Intern
+        | JobPlacementAdvocate
+        | SkillsInstructor
+        | Intake
+        | Clerical
+    
+    type Reporter = 
+        | SurvivorJobseeker
+        | SurvivorContractor
+        | SurvivorOwnedFirm
+        | HelpseekerAndJobseeker //caller at one time needed help but didn't 
+                                // get helped, and at a different time, applied 
+                                // for a job with an NGO and didn't get it.
+
+
+============================
+     TerminalBuilder.fs
+============================
+
+     let rec reporter():Reporter =
+        printfn "Are you reporting as a survivor that sought employment?"
+        printfn "Enter 1 if you contacted an NGO as a Job Applicant"
+        printfn "Enter 2 if you contacted an NGO as a Contractor/Consultant"
+        printfn "Enter 3 if you contacted an NGO as a Survivor-Owned Vendor"
+        printfn "Enter 4 if you contacted an NGO for help and an NGO for a job"
+        let answer = Console.ReadLine()
+        printfn "Enter the job title you applied for:"
+        let ans = Console.ReadLine()
+        printfn "Enter the name of the NGO you applied for a job at:"
+        let rep = Console.ReadLine()
+        printfn "%s %s" rep ans
+        //let reply = Console.ReadLine()
+        match answer.Trim() with
+            | "1" -> SurvivorJobseeker
+            | "2" -> SurvivorContractor
+            | "3" -> SurvivorOwnedFirm
+            | "4" -> HelpseekerAndJobseeker                       
+            | _ -> printfn "Invalid Entry"
+                   reporter()
