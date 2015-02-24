@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"Case":"Call","Fields":[{"Case":"Victim"},{"Case":"VictimServices"},{"Case":"CallerRef","Fields":[{"Case":"CallerRefToOtherNgo","Fields":[{"Case":"CallerSelfFollow","Fields":[{"Case":"HelpFail"}]},{"Case":"Ngo","Fields":[{"Case":"VictimSafehouse"},"Refuge for Women"]}]}]}]}
+=======
+{"Case":"Call","Fields":[{"Case":"Survivor"},{"Case":"SurvivorAssistance","Fields":[[{"Case":"Dental"},{"Case":"Medical"}]]},{"Case":"CallerRef","Fields":[{"Case":"CallerRefToOtherNgo","Fields":[{"Case":"CallerSelfFollow","Fields":[{"Case":"Referred","Fields":[{"Case":"CallerRefToOtherNgo","Fields":[{"Case":"CallerSelfFollow","Fields":[{"Case":"Referred","Fields":[{"Case":"CallerRefToOtherNgo","Fields":[{"Case":"CallerSelfFollow","Fields":[{"Case":"RanOutOfHelps"}]},{"Case":"Ngo","Fields":[{"Case":"HomelessShelter"},"Salvation Army"]}]}]}]},{"Case":"Ngo","Fields":[{"Case":"SurvivorAid"},"Refuge for Women"]}]}]}]},{"Case":"Ngo","Fields":[{"Case":"SurvivorAid"},"Shared Hope"]}]}]}]}
+>>>>>>> dev
