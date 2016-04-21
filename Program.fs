@@ -8,7 +8,7 @@ open System.Data.Linq
 open Microsoft.FSharp.Data
 open Newtonsoft.Json
 open Polaris.PolarisSux
-open Polaris.Types
+open Polaris.Core.Types
 open Polaris.TerminalBuilder
 
 let rec ngoinfo(Ngo(cat, name)) =

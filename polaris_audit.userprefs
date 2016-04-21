@@ -1,0 +1,15 @@
+﻿<Properties StartupItem="polaris_audit.fsproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="TerminalBuilder.fs">
+    <Files>
+      <File FileName="Program.fs" Line="127" Column="17" />
+      <File FileName="DatabaseFile.fs" Line="1" Column="1" />
+      <File FileName="CallTree.fs" Line="1" Column="1" />
+      <File FileName="TerminalBuilder.fs" Line="14" Column="30" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

@@ -3,7 +3,7 @@
 module TerminalBuilder =
     open System
     open System.IO
-    open Polaris.Types
+    open Polaris.Core.Types
 
 //    let rec menu(header:string)(options:string[]) =
 //        printfn "%s" header

@@ -1,0 +1,5 @@
+/home/jacque/Projects/F-sharp/polaris_audit/Polaris.Postgres/obj/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.fs
+/home/jacque/Projects/F-sharp/polaris_audit/Polaris.Postgres/bin/Debug/Polaris.Postgres.dll.mdb
+/home/jacque/Projects/F-sharp/polaris_audit/Polaris.Postgres/bin/Debug/Polaris.Postgres.dll
+/home/jacque/Projects/F-sharp/polaris_audit/Polaris.Postgres/obj/Debug/Polaris.Postgres.dll
+/home/jacque/Projects/F-sharp/polaris_audit/Polaris.Postgres/obj/Debug/Polaris.Postgres.dll.mdb
