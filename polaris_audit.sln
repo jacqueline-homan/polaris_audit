@@ -7,12 +7,18 @@ Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Polaris.Core", "Polaris.cor
 EndProject
 Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Polaris.Postgres", "Polaris.Postgres\Polaris.Postgres.fsproj", "{CAE5FF55-2EC1-47B0-B302-1F9236204D5C}"
 EndProject
+Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "polaris_suave", "polaris_suave\polaris_suave.fsproj", "{13DF97A7-92B7-42DD-ADB3-144F830AF24F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{13DF97A7-92B7-42DD-ADB3-144F830AF24F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{13DF97A7-92B7-42DD-ADB3-144F830AF24F}.Debug|x86.Build.0 = Debug|Any CPU
+		{13DF97A7-92B7-42DD-ADB3-144F830AF24F}.Release|x86.ActiveCfg = Release|Any CPU
+		{13DF97A7-92B7-42DD-ADB3-144F830AF24F}.Release|x86.Build.0 = Release|Any CPU
 		{363D0BF2-6519-47BE-A36C-D1F6C3921939}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{363D0BF2-6519-47BE-A36C-D1F6C3921939}.Debug|x86.Build.0 = Debug|Any CPU
 		{363D0BF2-6519-47BE-A36C-D1F6C3921939}.Release|x86.ActiveCfg = Release|Any CPU
