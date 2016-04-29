@@ -9,6 +9,8 @@ Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Polaris.Postgres", "Polaris
 EndProject
 Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "polaris_suave", "polaris_suave\polaris_suave.fsproj", "{13DF97A7-92B7-42DD-ADB3-144F830AF24F}"
 EndProject
+Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "PracticeWeb", "PracticeWeb\PracticeWeb.fsproj", "{F5D3B2E6-98EC-438F-BC28-F1E65C895CCD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -31,5 +33,9 @@ Global
 		{CAE5FF55-2EC1-47B0-B302-1F9236204D5C}.Debug|x86.Build.0 = Debug|Any CPU
 		{CAE5FF55-2EC1-47B0-B302-1F9236204D5C}.Release|x86.ActiveCfg = Release|Any CPU
 		{CAE5FF55-2EC1-47B0-B302-1F9236204D5C}.Release|x86.Build.0 = Release|Any CPU
+		{F5D3B2E6-98EC-438F-BC28-F1E65C895CCD}.Debug|x86.ActiveCfg = Debug|x86
+		{F5D3B2E6-98EC-438F-BC28-F1E65C895CCD}.Debug|x86.Build.0 = Debug|x86
+		{F5D3B2E6-98EC-438F-BC28-F1E65C895CCD}.Release|x86.ActiveCfg = Release|x86
+		{F5D3B2E6-98EC-438F-BC28-F1E65C895CCD}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 EndGlobal

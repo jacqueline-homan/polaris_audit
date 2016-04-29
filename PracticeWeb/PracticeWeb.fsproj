@@ -23,14 +23,47 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
-    <Reference Include="FSharp.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
+    <Reference Include="DotLiquid">
+      <HintPath>..\packages\DotLiquid.1.8.0\lib\NET40\DotLiquid.dll</HintPath>
+    </Reference>
+    <Reference Include="FSharp.Charting.Gtk">
+      <HintPath>..\packages\FSharp.Charting.Gtk.0.90.14\lib\net40\FSharp.Charting.Gtk.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot">
+      <HintPath>..\packages\FSharp.Charting.Gtk.0.90.14\lib\net40\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.GtkSharp">
+      <HintPath>..\packages\FSharp.Charting.Gtk.0.90.14\lib\net40\OxyPlot.GtkSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="FSharp.Core">
+      <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\net40\FSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FSharp.Data">
+      <HintPath>..\packages\FSharp.Data.2.2.5\lib\net40\FSharp.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Fuchu">
+      <HintPath>..\packages\Fuchu.1.0.3.0\lib\Fuchu.dll</HintPath>
+    </Reference>
+    <Reference Include="Suave">
+      <HintPath>..\packages\Suave.1.1.2\lib\net40\Suave.dll</HintPath>
+    </Reference>
+    <Reference Include="Suave.DotLiquid">
+      <HintPath>..\packages\Suave.DotLiquid.1.1.2\lib\net40\Suave.DotLiquid.dll</HintPath>
+    </Reference>
+    <Reference Include="Suave.Testing">
+      <HintPath>..\packages\Suave.Testing.1.1.2\lib\net40\Suave.Testing.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.1\Framework\v4.0\Microsoft.FSharp.Targets" />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
 </Project>

@@ -97,27 +97,28 @@ module TerminalBuilder =
         printfn "3 for self-reporting/no caseworker followup"
         let reply = Console.ReadLine()
         match reply.Trim() with
-            | "1" -> FollowedUp (helpbuilder())                     
-                    
-            | "2" -> NotFollowedUp
-            | "3" -> CallerSelfFollow (helpbuilder())
+            | "1" -> FollowedUp (helpbuilder())           
+            | "2" -> NotFollowedUp (helpbuilder())
+            //| "3" -> CallerSelfFollow (helpbuilder())
             | _ -> printfn "Invalid option"
                    followup()
 
     and helpbuilder():Help = 
         printfn "What kind of help did you get?"
-        printfn "Enter 1 if You got the help you needed"
+        printfn "Enter 1 if You got all the help you needed"
         printfn "Enter 2 if Not Helped and all options were exhausted"
         printfn "Enter 3 if Denied Help"
         printfn "Enter 4 if You were offered the WRONG help"
-        printfn "Enter 5 if You were Not Helped But Referred to another NGO"
+        printfn "Enter 5 if You were helped with only SOME of your unmet needs"
+        printfn "Enter 6 if You were Not Helped But Referred to another NGO"
         let response = Console.ReadLine()
         match response.Trim() with
             | "1" -> Helped
             | "2" -> RanOutOfHelps
             | "3" -> NotHelped (followup())
             | "4" -> WrongHelp (followup())
-            | "5" -> Referred (refbuilder())                
+            | "5" -> PartiallyHelped (refbuilder())
+            | "6" -> Referred (refbuilder())                
             | _ -> 
                    printfn "Invalid Option"
                    helpbuilder()

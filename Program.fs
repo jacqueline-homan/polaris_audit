@@ -22,6 +22,8 @@ let rec ngoinfo(Ngo(cat, name)) =
 let rec help(h:Help) =
     match h with
     | Helped -> printfn "Got all the help requested and needed"
+    | PartiallyHelped (crngo) -> printfn "Only partly helped and still have unmet basic needs"
+                                 callerreftonextngo(crngo)
     | RanOutOfHelps -> printfn "Exhausted all referrals and still not helped"
     | NotHelped (fu) -> printfn "Denied help (possible discrimination?)"
                         followupper(fu)
@@ -38,11 +40,12 @@ and callerreftonextngo(CallerRefToOtherNgo(fu, ng)) =
 
 and followupper(fu:Followup) =
     match fu with
-    | NotFollowedUp -> printfn "No one followed up"
+    | NotFollowedUp(h) -> printfn "No one followed up"
+                          help(h)                       
     | FollowedUp(h) -> printfn "A caseworker followed up"
                        help(h)
-    | CallerSelfFollow(h) -> printfn "Caller self-reporting/no caseworker followup"
-                             help(h)
+    //| CallerSelfFollow(h) -> printfn "Caller self-reporting/no caseworker followup"
+                             //help(h)
 
 
 let outcome_of_poldisp(pd) = 

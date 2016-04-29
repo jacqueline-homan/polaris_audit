@@ -26,14 +26,8 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
-    <Reference Include="FSharp.Core">
-      <HintPath>..\packages\FSharp.Core.3.1.2.5\lib\net40\FSharp.Core.dll</HintPath>
-    </Reference>
     <Reference Include="Suave">
       <HintPath>..\packages\Suave.1.1.2\lib\net40\Suave.dll</HintPath>
-    </Reference>
-    <Reference Include="Fuchu">
-      <HintPath>..\packages\Fuchu.1.0.2.0\lib\Fuchu.dll</HintPath>
     </Reference>
     <Reference Include="Suave.Testing">
       <HintPath>..\packages\Suave.Testing.1.1.2\lib\net40\Suave.Testing.dll</HintPath>
@@ -56,6 +50,12 @@
     </Reference>
     <Reference Include="OxyPlot.GtkSharp">
       <HintPath>..\packages\FSharp.Charting.Gtk.0.90.14\lib\net40\OxyPlot.GtkSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Fuchu">
+      <HintPath>..\packages\Fuchu.1.0.3.0\lib\Fuchu.dll</HintPath>
+    </Reference>
+    <Reference Include="FSharp.Core">
+      <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\net40\FSharp.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

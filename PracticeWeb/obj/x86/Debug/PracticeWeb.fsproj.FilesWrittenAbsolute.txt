@@ -1,0 +1,15 @@
+/home/jacque/Projects/F-sharp/polaris_audit/PracticeWeb/obj/x86/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.fs
+/home/jacque/Projects/F-sharp/polaris_audit/PracticeWeb/bin/Debug/PracticeWeb.exe.mdb
+/home/jacque/Projects/F-sharp/polaris_audit/PracticeWeb/bin/Debug/PracticeWeb.exe
+/home/jacque/Projects/F-sharp/polaris_audit/PracticeWeb/obj/x86/Debug/PracticeWeb.exe
+/home/jacque/Projects/F-sharp/polaris_audit/PracticeWeb/obj/x86/Debug/PracticeWeb.exe.mdb
+/home/jacque/Projects/F-sharp/polaris_audit/PracticeWeb/bin/Debug/DotLiquid.dll
+/home/jacque/Projects/F-sharp/polaris_audit/PracticeWeb/bin/Debug/FSharp.Charting.Gtk.dll
+/home/jacque/Projects/F-sharp/polaris_audit/PracticeWeb/bin/Debug/OxyPlot.dll
+/home/jacque/Projects/F-sharp/polaris_audit/PracticeWeb/bin/Debug/OxyPlot.GtkSharp.dll
+/home/jacque/Projects/F-sharp/polaris_audit/PracticeWeb/bin/Debug/FSharp.Core.dll
+/home/jacque/Projects/F-sharp/polaris_audit/PracticeWeb/bin/Debug/FSharp.Data.dll
+/home/jacque/Projects/F-sharp/polaris_audit/PracticeWeb/bin/Debug/Fuchu.dll
+/home/jacque/Projects/F-sharp/polaris_audit/PracticeWeb/bin/Debug/Suave.dll
+/home/jacque/Projects/F-sharp/polaris_audit/PracticeWeb/bin/Debug/Suave.DotLiquid.dll
+/home/jacque/Projects/F-sharp/polaris_audit/PracticeWeb/bin/Debug/Suave.Testing.dll
