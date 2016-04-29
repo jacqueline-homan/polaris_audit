@@ -97,7 +97,6 @@ let caller_req(cr:CallerRequest) = //Done
 
 let caller_info(c:Caller) = //Done
     match c with
-    | Victim -> printfn "Victim"
     | Survivor -> printfn "Survivor"
     | Advocate -> printfn "Advocate"
 

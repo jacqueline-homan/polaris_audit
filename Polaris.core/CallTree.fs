@@ -18,8 +18,7 @@ module Types =
         | JobPlacement     = 11
 
 
-    type Caller =
-//        | Victim
+    type Caller =      
         | Survivor
         | Advocate
 

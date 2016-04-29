@@ -8,12 +8,10 @@ module TerminalBuilder =
 
     let rec caller():Caller =
         printfn "Are you reporting as a victim, survivor, or advocate?"
-//        printfn "Enter 1 for Victim"
         printfn "Enter 1 for Survivor"
         printfn "Enter 2 for Advocate"
         let response = Console.ReadLine()
         match response.Trim() with
-//            | "1" -> Victim
             | "1" -> Survivor
             | "2" -> Advocate
             | _ -> printfn "Invalid Response"
@@ -93,8 +91,7 @@ module TerminalBuilder =
     let rec followup()=
         printfn "Did anyone follow up with you?"
         printfn "1 for Yes"
-        printfn "2 for No"
-        printfn "3 for self-reporting/no caseworker followup"
+        printfn "2 for No"      
         let reply = Console.ReadLine()
         match reply.Trim() with
             | "1" -> FollowedUp (helpbuilder())           
