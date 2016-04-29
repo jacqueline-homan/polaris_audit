@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{13DF97A7-92B7-42DD-ADB3-144F830AF24F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>polaris_suave</RootNamespace>
+    <AssemblyName>polaris_suave</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="Suave">
+      <HintPath>..\packages\Suave.1.1.2\lib\net40\Suave.dll</HintPath>
+    </Reference>
+    <Reference Include="Suave.Testing">
+      <HintPath>..\packages\Suave.Testing.1.1.2\lib\net40\Suave.Testing.dll</HintPath>
+    </Reference>
+    <Reference Include="DotLiquid">
+      <HintPath>..\packages\DotLiquid.1.8.0\lib\NET40\DotLiquid.dll</HintPath>
+    </Reference>
+    <Reference Include="Suave.DotLiquid">
+      <HintPath>..\packages\Suave.DotLiquid.1.1.2\lib\net40\Suave.DotLiquid.dll</HintPath>
+    </Reference>
+    <Reference Include="FSharp.Data">
+      <HintPath>..\packages\FSharp.Data.2.2.5\lib\net40\FSharp.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="FSharp.Charting.Gtk">
+      <HintPath>..\packages\FSharp.Charting.Gtk.0.90.14\lib\net40\FSharp.Charting.Gtk.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot">
+      <HintPath>..\packages\FSharp.Charting.Gtk.0.90.14\lib\net40\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.GtkSharp">
+      <HintPath>..\packages\FSharp.Charting.Gtk.0.90.14\lib\net40\OxyPlot.GtkSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Fuchu">
+      <HintPath>..\packages\Fuchu.1.0.3.0\lib\Fuchu.dll</HintPath>
+    </Reference>
+    <Reference Include="FSharp.Core">
+      <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\net40\FSharp.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.fs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.1\Framework\v4.0\Microsoft.FSharp.Targets" />
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Script.fsx" />
+  </ItemGroup>
+</Project>

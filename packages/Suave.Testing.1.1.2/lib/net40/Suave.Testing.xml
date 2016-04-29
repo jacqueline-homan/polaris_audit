@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>Suave.Testing</name></assembly>
+<members>
+<member name="T:Suave.Testing.SuaveTestCtx">
+<summary>
+ This test context is a holder for the runtime values of the web
+ server of suave, as well as the cancellation token that is
+ threaded throughout the web server and will shut down all
+ concurrently running async operations.
+
+ When you are done with it, you should call `dispose_context` to
+ cancel the token and dispose the server&apos;s runtime artifacts
+ (like the listening socket etc).
+</summary>
+</member>
+<member name="M:Suave.Testing.reqCookies'``1(Suave.Http.HttpMethod,System.String,Microsoft.FSharp.Core.FSharpOption{``0},Suave.Testing.SuaveTestCtx)">
+<summary>
+ Returns the cookie collection for the default binding.
+</summary>
+</member>
+<member name="M:Suave.Testing.reqCookies``1(Suave.Http.HttpMethod,System.String,Microsoft.FSharp.Core.FSharpOption{``0},Suave.Testing.SuaveTestCtx)">
+<summary>
+ Test a request by looking at the cookies alone.
+</summary>
+</member>
+<member name="M:Suave.Testing.reqResp``2(Suave.Http.HttpMethod,System.String,System.String,Microsoft.FSharp.Core.FSharpOption{``0},Microsoft.FSharp.Core.FSharpOption{System.Net.CookieContainer},System.Net.DecompressionMethods,Microsoft.FSharp.Core.FSharpFunc{System.Net.Http.HttpRequestMessage,System.Net.Http.HttpRequestMessage},Microsoft.FSharp.Core.FSharpFunc{System.Net.Http.HttpResponseMessage,``1})">
+<summary>
+ This is the main function for the testing library; it lets you assert
+ on the request/response values while ensuring deterministic
+ disposal of suave.
+
+ Currently, it:
+
+  - doesn&apos;t automatically follow 301 FOUND redirects (nor 302, 307) to
+    ensure you can assert on redirects.
+  - only requests to the very first binding your web server has in use
+  - only sets a HttpContent if you have given a value to the `data`
+    parameter.
+  - waits 5000 ms for a reply, then breaks into the debugger if you&apos;re
+    attached, otherwise asserts a failure of the timeout
+  - calls `f_result` with the HttpResponseMessage
+
+</summary>
+</member>
+<member name="M:Suave.Testing.send(System.Net.Http.HttpClient,System.TimeSpan,Suave.Testing.SuaveTestCtx,System.Net.Http.HttpRequestMessage)">
+<summary>
+ Send the request with the client - returning the result of the request
+</summary>
+</member>
+<member name="M:Suave.Testing.mkHandler``1(System.Net.DecompressionMethods,Microsoft.FSharp.Core.FSharpOption{``0})">
+<summary>
+ Create a new disposable HttpClientHandler
+</summary>
+</member>
+<member name="M:Suave.Testing.mkRequest``1(Suave.Http.HttpMethod,System.String,System.String,Microsoft.FSharp.Core.FSharpOption{``0},System.Uri)">
+<summary>
+ Create a new HttpRequestMessage towards the endpoint
+</summary>
+</member>
+<member name="M:Suave.Testing.withContext``1(Microsoft.FSharp.Core.FSharpFunc{Suave.Testing.SuaveTestCtx,``0},Suave.Testing.SuaveTestCtx)">
+<summary>
+ Ensures the context is disposed after &apos;f ctx&apos; is called.
+</summary>
+</member>
+<member name="M:Suave.Testing.runWith(Suave.SuaveConfig,Microsoft.FSharp.Core.FSharpFunc{Suave.Http.HttpContext,Microsoft.FSharp.Control.FSharpAsync{Microsoft.FSharp.Core.FSharpOption{Suave.Http.HttpContext}}})">
+<summary>
+ Similar to run_with_factory, but uses the default suave factory.
+</summary>
+</member>
+<member name="M:Suave.Testing.runWithFactory``2(Microsoft.FSharp.Core.FSharpFunc{Suave.SuaveConfig,Microsoft.FSharp.Core.FSharpFunc{``0,System.Tuple{Microsoft.FSharp.Control.FSharpAsync{``1},Microsoft.FSharp.Control.FSharpAsync{Microsoft.FSharp.Core.Unit}}}},Suave.SuaveConfig,``0)">
+<summary>
+ Create a new test context from a factory that starts the web
+ server, such as `web_server_async` from `Suave.Web`. Also pass
+ in a `SuaveConfig` value and the web parts you&apos;d like to test.
+
+ The factory needs to start two async&apos;s, one which this function
+ can block on (listening) and another (server) which is the actual
+ async value of the running server. The listening async value will
+ be awaited inside this function but the server async value will
+ be run on the thread pool.
+</summary>
+</member>
+<member name="M:Suave.Testing.disposeContext(Suave.Testing.SuaveTestCtx)">
+<summary>
+ Cancels the cancellation token source and disposes the server&apos;s
+ resources.
+</summary>
+</member>
+<member name="M:Suave.Testing.Utilities.toHttpMethod(Suave.Http.HttpMethod)">
+<summary>
+ Utility function for mapping from Suave.Types.HttpMethod to
+ System.Net.Http.HttpMethod.
+</summary>
+</member>
+</members>
+</doc>

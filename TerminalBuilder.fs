@@ -3,19 +3,21 @@
 module TerminalBuilder =
     open System
     open System.IO
+<<<<<<< HEAD
     open Polaris.Types
+=======
+    open Polaris.Core.Types
+>>>>>>> c9fd19c93f69d02044c613c0cb9d9119fa682298
                 
 
     let rec caller():Caller =
         printfn "Are you reporting as a victim, survivor, or advocate?"
-        printfn "Enter 1 for Victim"
-        printfn "Enter 2 for Survivor"
-        printfn "Enter 3 for Advocate"
+        printfn "Enter 1 for Survivor"
+        printfn "Enter 2 for Advocate"
         let response = Console.ReadLine()
         match response.Trim() with
-            | "1" -> Victim
-            | "2" -> Survivor
-            | "3" -> Advocate
+            | "1" -> Survivor
+            | "2" -> Advocate
             | _ -> printfn "Invalid Response"
                    caller()
 
@@ -54,17 +56,17 @@ module TerminalBuilder =
             | _ ->
                 let n =
                     match response.Trim().ToLower() with
-                    | "legal" -> Some Legal
-                    | "dental" -> Some Dental
-                    | "medical" -> Some Medical
-                    | "vison" -> Some Vison
-                    | "hearing" -> Some Hearing
-                    | "trauma therapy" -> Some TraumaTherapy
-                    | "income support" -> Some IncomeSupport
-                    | "permanent housing" -> Some PermanentHousing
-                    | "educational help" -> Some EducationHelp
-                    | "skills training" -> Some SkillsTraining
-                    | "job placement" -> Some JobPlacement
+                    | "legal" -> Some RequestedNeeds.Legal
+                    | "dental" -> Some RequestedNeeds.Dental
+                    | "medical" -> Some RequestedNeeds.Medical
+                    | "vison" -> Some RequestedNeeds.Vison
+                    | "hearing" -> Some RequestedNeeds.Hearing
+                    | "trauma therapy" -> Some RequestedNeeds.TraumaTherapy
+                    | "income support" -> Some RequestedNeeds.IncomeSupport
+                    | "permanent housing" -> Some RequestedNeeds.PermanentHousing
+                    | "educational help" -> Some RequestedNeeds.EducationHelp
+                    | "skills training" -> Some RequestedNeeds.SkillsTraining
+                    | "job placement" -> Some RequestedNeeds.JobPlacement
                     | _ -> printfn "Invalid entry"
                            None
                 match n with
@@ -93,31 +95,31 @@ module TerminalBuilder =
     let rec followup()=
         printfn "Did anyone follow up with you?"
         printfn "1 for Yes"
-        printfn "2 for No"
-        printfn "3 for self-reporting/no caseworker followup"
+        printfn "2 for No"      
         let reply = Console.ReadLine()
         match reply.Trim() with
-            | "1" -> FollowedUp (helpbuilder())                     
-                    
-            | "2" -> NotFollowedUp
-            | "3" -> CallerSelfFollow (helpbuilder())
+            | "1" -> FollowedUp (helpbuilder())           
+            | "2" -> NotFollowedUp (helpbuilder())
+            //| "3" -> CallerSelfFollow (helpbuilder())
             | _ -> printfn "Invalid option"
                    followup()
 
     and helpbuilder():Help = 
         printfn "What kind of help did you get?"
-        printfn "Enter 1 if You got the help you needed"
+        printfn "Enter 1 if You got all the help you needed"
         printfn "Enter 2 if Not Helped and all options were exhausted"
         printfn "Enter 3 if Denied Help"
         printfn "Enter 4 if You were offered the WRONG help"
-        printfn "Enter 5 if You were Not Helped But Referred to another NGO"
+        printfn "Enter 5 if You were helped with only SOME of your unmet needs"
+        printfn "Enter 6 if You were Not Helped But Referred to another NGO"
         let response = Console.ReadLine()
         match response.Trim() with
             | "1" -> Helped
             | "2" -> RanOutOfHelps
             | "3" -> NotHelped (followup())
             | "4" -> WrongHelp (followup())
-            | "5" -> Referred (refbuilder())                
+            | "5" -> PartiallyHelped (refbuilder())
+            | "6" -> Referred (refbuilder())                
             | _ -> 
                    printfn "Invalid Option"
                    helpbuilder()

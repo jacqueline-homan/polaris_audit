@@ -37,12 +37,15 @@
     <Reference Include="System.Numerics" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Xml.Linq" />
+<<<<<<< HEAD
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+=======
+>>>>>>> c9fd19c93f69d02044c613c0cb9d9119fa682298
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="linq2db">
@@ -55,6 +58,7 @@
       <HintPath>packages\Npgsql.2.2.7\lib\net45\Npgsql.dll</HintPath>
       <Private>False</Private>
     </Reference>
+<<<<<<< HEAD
     <Reference Include="Npgsql.EntityFramework">
       <HintPath>packages\Npgsql.EntityFramework.2.2.7\lib\net45\Npgsql.EntityFramework.dll</HintPath>
       <Private>False</Private>
@@ -62,12 +66,15 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
+=======
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+>>>>>>> c9fd19c93f69d02044c613c0cb9d9119fa682298
     </Reference>
+    <Reference Include="System.Data.Entity" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="CallTree.fs" />
-    <Compile Include="Builder.fs" />
     <Compile Include="TerminalBuilder.fs" />
     <Compile Include="DatabaseFile.fs" />
     <Compile Include="Program.fs">
@@ -82,6 +89,7 @@
     <None Include="DataTreeModel.doc\Polaris data chart part 2.pdf" />
     <None Include="App.config" />
     <None Include="packages.config" />
+<<<<<<< HEAD
     <None Include="EmptyTextFile.txt" />
     <None Include="LinqToDB.Templates\LinqToDB.PostgreSQL.Tools.ttinclude" />
     <None Include="LinqToDB.Templates\CopyMe.PostgreSQL.tt.txt" />
@@ -107,5 +115,17 @@
     <None Include="LinqToDB.Templates\T4Model.ttinclude" />
     <None Include="LinqToDB.Templates\Validation.ttinclude" />
     <None Include="LinqToDB.Templates\LinqToDB.Tools.ttinclude" />
+=======
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Polaris.Postgres\Polaris.Postgres.fsproj">
+      <Project>{CAE5FF55-2EC1-47B0-B302-1F9236204D5C}</Project>
+      <Name>Polaris.Postgres</Name>
+    </ProjectReference>
+    <ProjectReference Include="Polaris.core\Polaris.Core.fsproj">
+      <Project>{363D0BF2-6519-47BE-A36C-D1F6C3921939}</Project>
+      <Name>Polaris.Core</Name>
+    </ProjectReference>
+>>>>>>> c9fd19c93f69d02044c613c0cb9d9119fa682298
   </ItemGroup>
 </Project>

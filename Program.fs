@@ -7,7 +7,7 @@ open System.Data.Linq
 open Microsoft.FSharp.Data
 open Newtonsoft.Json
 open Polaris.PolarisSux
-open Polaris.Types
+open Polaris.Core.Types
 open Polaris.TerminalBuilder
 
 let rec ngoinfo(Ngo(cat, name)) =
@@ -21,6 +21,8 @@ let rec ngoinfo(Ngo(cat, name)) =
 let rec help(h:Help) =
     match h with
     | Helped -> printfn "Got all the help requested and needed"
+    | PartiallyHelped (crngo) -> printfn "Only partly helped and still have unmet basic needs"
+                                 callerreftonextngo(crngo)
     | RanOutOfHelps -> printfn "Exhausted all referrals and still not helped"
     | NotHelped (fu) -> printfn "Denied help (possible discrimination?)"
                         followupper(fu)
@@ -37,11 +39,12 @@ and callerreftonextngo(CallerRefToOtherNgo(fu, ng)) =
 
 and followupper(fu:Followup) =
     match fu with
-    | NotFollowedUp -> printfn "No one followed up"
+    | NotFollowedUp(h) -> printfn "No one followed up"
+                          help(h)                       
     | FollowedUp(h) -> printfn "A caseworker followed up"
                        help(h)
-    | CallerSelfFollow(h) -> printfn "Caller self-reporting/no caseworker followup"
-                             help(h)
+    //| CallerSelfFollow(h) -> printfn "Caller self-reporting/no caseworker followup"
+                             //help(h)
 
 
 let outcome_of_poldisp(pd) = 
@@ -71,17 +74,17 @@ let call_out(co:CallOutcome) = //
 let fx(rn:Set<RequestedNeeds>)=
     Seq.iter(fun x ->
         match x with
-        | Legal -> printfn "Legal"
-        | Dental -> printfn "Dental"
-        | Medical -> printfn "Medical"
-        | Vison -> printfn "Vison"
-        | Hearing -> printfn "Hearing"
-        | TraumaTherapy -> printfn "Trauma Therapy"
-        | IncomeSupport -> printfn "Income Support"
-        | PermanentHousing -> printfn "Pernament Housing"
-        | EducationHelp -> printfn "Education Help"
-        | SkillsTraining -> printfn "Skills Training"
-        | JobPlacement  -> printfn "Job Placement") (rn)
+        | RequestedNeeds.Legal -> printfn "Legal"
+        | RequestedNeeds.Dental -> printfn "Dental"
+        | RequestedNeeds.Medical -> printfn "Medical"
+        | RequestedNeeds.Vison -> printfn "Vison"
+        | RequestedNeeds.Hearing -> printfn "Hearing"
+        | RequestedNeeds.TraumaTherapy -> printfn "Trauma Therapy"
+        | RequestedNeeds.IncomeSupport -> printfn "Income Support"
+        | RequestedNeeds.PermanentHousing -> printfn "Pernament Housing"
+        | RequestedNeeds.EducationHelp -> printfn "Education Help"
+        | RequestedNeeds.SkillsTraining -> printfn "Skills Training"
+        | RequestedNeeds.JobPlacement  -> printfn "Job Placement") (rn)
 
 let caller_req(cr:CallerRequest) = //Done
     match cr with
@@ -92,7 +95,6 @@ let caller_req(cr:CallerRequest) = //Done
 
 let caller_info(c:Caller) = //Done
     match c with
-    | Victim -> printfn "Victim"
     | Survivor -> printfn "Survivor"
     | Advocate -> printfn "Advocate"
 
@@ -125,7 +127,7 @@ let main argv =
     let ca2 = JsonConvert.DeserializeObject<Call>(js)
     call_info(ca2)
      
-     
+
 
 //    printfn "%A" argv
     0 // return an integer exit code
