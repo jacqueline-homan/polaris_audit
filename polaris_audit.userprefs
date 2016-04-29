@@ -1,6 +1,12 @@
 ﻿<Properties StartupItem="PracticeWeb/PracticeWeb.fsproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="TerminalBuilder.fs">
+    <Files>
+      <File FileName="TerminalBuilder.fs" Line="76" Column="45" />
+      <File FileName="Program.fs" Line="14" Column="33" />
+      <File FileName="Polaris.core/CallTree.fs" Line="13" Column="31" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

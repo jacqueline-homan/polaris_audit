@@ -85,7 +85,8 @@ let fx(rn:Set<RequestedNeeds>)=
         | RequestedNeeds.PermanentHousing -> printfn "Pernament Housing"
         | RequestedNeeds.EducationHelp -> printfn "Education Help"
         | RequestedNeeds.SkillsTraining -> printfn "Skills Training"
-        | RequestedNeeds.JobPlacement  -> printfn "Job Placement") (rn)
+        | RequestedNeeds.JobPlacement  -> printfn "Job Placement"
+        | _ -> printfn" ")(rn)
 
 let caller_req(cr:CallerRequest) = //Done
     match cr with
