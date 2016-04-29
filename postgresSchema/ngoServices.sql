@@ -1,9 +1,10 @@
-﻿create table ngoServices (
-	ngo.id bigint not null, --foreign key to ngo.id
+﻿
+CREATE TABLE ngoServices (
+	ngo.id BIGINT NOT NULL, --foreign key to ngo.id
 	maxShelter int,
-	providesShelter boolean not_null,
-	providesMedical boolean not_null,
-	providesDental boolean not_null,
-	providesLegal boolean not_null,
-	providesTraining boolean not_null
+	providesShelter BOOLEAN not_null,
+	providesMedical BOOLEAN not_null,
+	providesDental BOOLEAN not_null,
+	providesLegal BOOLEAN not_null,
+	providesTraining BOOLEAN not_null
 )

@@ -1,4 +1,5 @@
-﻿create table ngoDetails (
-	annualIncome numeric,
-	hasKnownFundingSources boolean
+﻿
+CREATE TABLE ngoDetails (
+	annualIncome NUMERIC,
+	hasKnownFundingSources BOOLEAN
 )
