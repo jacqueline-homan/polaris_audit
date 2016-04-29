@@ -75,17 +75,17 @@ let call_out(co:CallOutcome) = //
 let fx(rn:Set<RequestedNeeds>)=
     Seq.iter(fun x ->
         match x with
-        | Legal -> printfn "Legal"
-        | Dental -> printfn "Dental"
-        | Medical -> printfn "Medical"
-        | Vison -> printfn "Vison"
-        | Hearing -> printfn "Hearing"
-        | TraumaTherapy -> printfn "Trauma Therapy"
-        | IncomeSupport -> printfn "Income Support"
-        | PermanentHousing -> printfn "Pernament Housing"
-        | EducationHelp -> printfn "Education Help"
-        | SkillsTraining -> printfn "Skills Training"
-        | JobPlacement  -> printfn "Job Placement") (rn)
+        | RequestedNeeds.Legal -> printfn "Legal"
+        | RequestedNeeds.Dental -> printfn "Dental"
+        | RequestedNeeds.Medical -> printfn "Medical"
+        | RequestedNeeds.Vison -> printfn "Vison"
+        | RequestedNeeds.Hearing -> printfn "Hearing"
+        | RequestedNeeds.TraumaTherapy -> printfn "Trauma Therapy"
+        | RequestedNeeds.IncomeSupport -> printfn "Income Support"
+        | RequestedNeeds.PermanentHousing -> printfn "Pernament Housing"
+        | RequestedNeeds.EducationHelp -> printfn "Education Help"
+        | RequestedNeeds.SkillsTraining -> printfn "Skills Training"
+        | RequestedNeeds.JobPlacement  -> printfn "Job Placement") (rn)
 
 let caller_req(cr:CallerRequest) = //Done
     match cr with
