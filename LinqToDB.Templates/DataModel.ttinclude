@@ -1,8 +1,8 @@
-<#@ assembly name="System.Data"      #>
-<#@ import namespace="System.Data"   #>
-<#@ import namespace="LinqToDB.SchemaProvider"   #>
-<#@ import namespace="LinqToDB.Data" #>
-<#@ include file="T4Model.ttinclude" #>
+<#@ assembly name="System.Data"                #>
+<#@ import namespace="System.Data"             #>
+<#@ import namespace="LinqToDB.SchemaProvider" #>
+<#@ import namespace="LinqToDB.Data"           #>
+<#@ include file="T4Model.ttinclude"           #>
 <#
 	{
 		var beforeGenerateModel = BeforeGenerateModel;
@@ -75,6 +75,7 @@ void LoadServerMetadata(DataConnection dataConnection)
 			key = t.IsDefaultSchema ? t.TableName : t.SchemaName + "." + t.TableName,
 			table = new Table
 			{
+				TableSchema             = t,
 				Schema                  = (t.IsDefaultSchema && !IncludeDefaultSchema) || string.IsNullOrEmpty(t.SchemaName)? null : t.SchemaName,
 				BaseClass               = BaseEntityClass,
 				TableName               = t.TableName,
@@ -149,10 +150,14 @@ void LoadServerMetadata(DataConnection dataConnection)
 
 	foreach (var key in keys)
 	{
-		key.t.table.ForeignKeys.Add(key.KeyName, key.key);
+		key.t.table.ForeignKeys.Add(
+			key.k.OtherTable.IsDefaultSchema ? key.KeyName : key.k.OtherTable.SchemaName + "." + key.KeyName,
+			key.key);
 
 		if (key.k.BackReference != null)
 			key.key.BackReference = keys.First(k => k.k == key.k.BackReference).key;
+
+		key.key.MemberName = key.key.MemberName.Replace(".", String.Empty);
 
 		key.key.MemberName = key.key.AssociationType == AssociationType.OneToMany ?
 			ToPlural(key.key.MemberName) : ToSingular(key.key.MemberName);
@@ -321,7 +326,11 @@ void LoadMetadata(DataConnection dataConnection)
 
 string ConvertToCompilable(string name)
 {
-	return name.Replace('.', '_').Replace(' ', '_');
+	var query =
+		from c in name
+		select char.IsLetterOrDigit(c) || c == '@' ? c : '_';
+
+	return new string(query.ToArray());
 }
 
 Table GetTable(string name)
@@ -474,14 +483,17 @@ Dictionary<string,Procedure> Procedures = new Dictionary<string,Procedure>();
 
 public partial class Table : Class
 {
-	public string Schema                  { get; set; }
-	public string TableName               { get; set; }
-	public string DataContextPropertyName { get; set; }
-	public bool   IsView                  { get; set; }
-	public bool   IsProviderSpecific      { get; set; }
-	public string Description             { get; set; }
-	public string AliasPropertyName       { get; set; }
-	public string AliasTypeName           { get; set; }
+	public TableSchema TableSchema             { get; set; }
+	public string      Schema                  { get; set; }
+	public string      TableName               { get; set; }
+	public string      DataContextPropertyName { get; set; }
+	public MemberBase  DataContextProperty     { get; set; }
+	public bool        IsView                  { get; set; }
+	public bool        IsProviderSpecific      { get; set; }
+	public string      Description             { get; set; }
+	public string      AliasPropertyName       { get; set; }
+	public string      AliasTypeName           { get; set; }
+	public string      TypePrefix              { get; set; }
 
 	public string TypeName
 	{
@@ -510,6 +522,7 @@ public partial class Column : Property
 	public bool      SkipOnUpdate;
 	public bool      SkipOnInsert;
 	public bool      IsDuplicateOrEmpty;
+	public bool      IsDiscriminator;
 	public string    AliasName;
 
 	public string MemberName

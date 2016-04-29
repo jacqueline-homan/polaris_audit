@@ -4,11 +4,6 @@ module TerminalBuilder =
     open System
     open System.IO
     open Polaris.Types
-
-//    let rec menu(header:string)(options:string[]) =
-//        printfn "%s" header
-//        let digits = [1..options.Length]
-//        Seq.iter((function (i,o) -> printfn "%d %s" i o)
                 
 
     let rec caller():Caller =
