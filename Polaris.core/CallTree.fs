@@ -5,22 +5,21 @@ open System.Collections
 module Types =    
 
     type RequestedNeeds =
-        | Legal
-        | Dental
-        | Medical
-        | Vison
-        | Hearing
-        | TraumaTherapy
-        | IncomeSupport
-        | PermanentHousing
-        | EducationHelp
-        | SkillsTraining
-        | JobPlacement
-
+        | Legal            = 1
+        | Dental           = 2
+        | Medical          = 3
+        | Vison            = 4
+        | Hearing          = 5
+        | TraumaTherapy    = 6
+        | IncomeSupport    = 7
+        | PermanentHousing = 8
+        | EducationHelp    = 9
+        | SkillsTraining   = 10
+        | JobPlacement     = 11
 
 
     type Caller =
-        | Victim
+//        | Victim
         | Survivor
         | Advocate
 
@@ -74,5 +73,5 @@ module Types =
 
     type Call = Call of Caller * CallerRequest * CallOutcome 
 
-  
+
 

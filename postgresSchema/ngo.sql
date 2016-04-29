@@ -1,6 +1,7 @@
-﻿create table ngo (
-	bigint id primary_key auto_increment not_null,
-	ein int unique,
+﻿
+CREATE TABLE ngo (
+	BIGINT id primary_key AUTO_INCREMENT not_null,
+	ein int UNIQUE,
 	name string(MAX) not_null,
 	einRegistrar string(MAX),
 	addressLine1 string(MAX) not_null,
