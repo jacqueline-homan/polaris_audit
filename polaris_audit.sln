@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "polaris_audit", "polaris_audit.fsproj", "{7B1CA47A-92DE-4938-9331-71C621946D97}"
 EndProject
-<<<<<<< HEAD
-=======
 Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Polaris.Core", "Polaris.core\Polaris.Core.fsproj", "{363D0BF2-6519-47BE-A36C-D1F6C3921939}"
 EndProject
 Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Polaris.Postgres", "Polaris.Postgres\Polaris.Postgres.fsproj", "{CAE5FF55-2EC1-47B0-B302-1F9236204D5C}"
@@ -13,15 +11,12 @@ Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "polaris_suave", "polaris_su
 EndProject
 Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "PracticeWeb", "PracticeWeb\PracticeWeb.fsproj", "{F5D3B2E6-98EC-438F-BC28-F1E65C895CCD}"
 EndProject
->>>>>>> c9fd19c93f69d02044c613c0cb9d9119fa682298
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-<<<<<<< HEAD
-=======
 		{13DF97A7-92B7-42DD-ADB3-144F830AF24F}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{13DF97A7-92B7-42DD-ADB3-144F830AF24F}.Debug|x86.Build.0 = Debug|Any CPU
 		{13DF97A7-92B7-42DD-ADB3-144F830AF24F}.Release|x86.ActiveCfg = Release|Any CPU
@@ -30,13 +25,10 @@ Global
 		{363D0BF2-6519-47BE-A36C-D1F6C3921939}.Debug|x86.Build.0 = Debug|Any CPU
 		{363D0BF2-6519-47BE-A36C-D1F6C3921939}.Release|x86.ActiveCfg = Release|Any CPU
 		{363D0BF2-6519-47BE-A36C-D1F6C3921939}.Release|x86.Build.0 = Release|Any CPU
->>>>>>> c9fd19c93f69d02044c613c0cb9d9119fa682298
 		{7B1CA47A-92DE-4938-9331-71C621946D97}.Debug|x86.ActiveCfg = Debug|x86
 		{7B1CA47A-92DE-4938-9331-71C621946D97}.Debug|x86.Build.0 = Debug|x86
 		{7B1CA47A-92DE-4938-9331-71C621946D97}.Release|x86.ActiveCfg = Release|x86
 		{7B1CA47A-92DE-4938-9331-71C621946D97}.Release|x86.Build.0 = Release|x86
-<<<<<<< HEAD
-=======
 		{CAE5FF55-2EC1-47B0-B302-1F9236204D5C}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{CAE5FF55-2EC1-47B0-B302-1F9236204D5C}.Debug|x86.Build.0 = Debug|Any CPU
 		{CAE5FF55-2EC1-47B0-B302-1F9236204D5C}.Release|x86.ActiveCfg = Release|Any CPU
@@ -45,6 +37,11 @@ Global
 		{F5D3B2E6-98EC-438F-BC28-F1E65C895CCD}.Debug|x86.Build.0 = Debug|x86
 		{F5D3B2E6-98EC-438F-BC28-F1E65C895CCD}.Release|x86.ActiveCfg = Release|x86
 		{F5D3B2E6-98EC-438F-BC28-F1E65C895CCD}.Release|x86.Build.0 = Release|x86
->>>>>>> c9fd19c93f69d02044c613c0cb9d9119fa682298
+		<<<<<<< HEAD
+		=======
+		>>>>>>> c9fd19c93f69d02044c613c0cb9d9119fa682298
+		<<<<<<< HEAD
+		=======
+		>>>>>>> c9fd19c93f69d02044c613c0cb9d9119fa682298
 	EndGlobalSection
 EndGlobal

@@ -37,20 +37,8 @@
     <Reference Include="System.Numerics" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Xml.Linq" />
-<<<<<<< HEAD
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-=======
->>>>>>> c9fd19c93f69d02044c613c0cb9d9119fa682298
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
-    <Reference Include="linq2db">
-      <HintPath>..\packages\linq2db.1.0.7\lib\net45\linq2db.dll</HintPath>
-    </Reference>
     <Reference Include="Mono.Security">
       <HintPath>packages\Npgsql.2.2.7\lib\net45\Mono.Security.dll</HintPath>
     </Reference>
@@ -58,65 +46,22 @@
       <HintPath>packages\Npgsql.2.2.7\lib\net45\Npgsql.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<<<<<<< HEAD
-    <Reference Include="Npgsql.EntityFramework">
-      <HintPath>packages\Npgsql.EntityFramework.2.2.7\lib\net45\Npgsql.EntityFramework.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
-=======
     <Reference Include="Newtonsoft.Json">
       <HintPath>packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
->>>>>>> c9fd19c93f69d02044c613c0cb9d9119fa682298
     </Reference>
     <Reference Include="System.Data.Entity" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <Compile Include="AssemblyInfo.fs" />
+    <None Include="App.config" />
     <Compile Include="TerminalBuilder.fs" />
     <Compile Include="DatabaseFile.fs" />
     <Compile Include="Program.fs">
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.1\Framework\v4.0\Microsoft.FSharp.Targets" />
-  <ItemGroup>
-    <Folder Include="DataTreeModel.doc\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="DataTreeModel.doc\Polaris data chart part 1.pdf" />
-    <None Include="DataTreeModel.doc\Polaris data chart part 2.pdf" />
-    <None Include="App.config" />
-    <None Include="packages.config" />
-<<<<<<< HEAD
-    <None Include="EmptyTextFile.txt" />
-    <None Include="LinqToDB.Templates\LinqToDB.PostgreSQL.Tools.ttinclude" />
-    <None Include="LinqToDB.Templates\CopyMe.PostgreSQL.tt.txt" />
-    <None Include="LinqToDB.Templates\ReadMe.LinqToDB.md" />
-    <None Include="LinqToDB.Templates\DataAnnotations.ttinclude" />
-    <None Include="LinqToDB.Templates\DataModel.ttinclude" />
-    <None Include="LinqToDB.Templates\EditableObject.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.Access.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.Firebird.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.MySql.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.Oracle.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.PostgreSQL.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.SqlCe.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.SQLite.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.SqlServer.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.SqlServer.SqlTypes.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.Sybase.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.DB2.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.Informix.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.ttinclude" />
-    <None Include="LinqToDB.Templates\NotifyPropertyChanged.ttinclude" />
-    <None Include="LinqToDB.Templates\PluralizationService.ttinclude" />
-    <None Include="LinqToDB.Templates\T4Model.ttinclude" />
-    <None Include="LinqToDB.Templates\Validation.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.Tools.ttinclude" />
-=======
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="Polaris.Postgres\Polaris.Postgres.fsproj">
       <Project>{CAE5FF55-2EC1-47B0-B302-1F9236204D5C}</Project>
@@ -126,6 +71,5 @@
       <Project>{363D0BF2-6519-47BE-A36C-D1F6C3921939}</Project>
       <Name>Polaris.Core</Name>
     </ProjectReference>
->>>>>>> c9fd19c93f69d02044c613c0cb9d9119fa682298
   </ItemGroup>
 </Project>

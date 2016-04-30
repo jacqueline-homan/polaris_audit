@@ -3,11 +3,8 @@
 module TerminalBuilder =
     open System
     open System.IO
-<<<<<<< HEAD
-    open Polaris.Types
-=======
     open Polaris.Core.Types
->>>>>>> c9fd19c93f69d02044c613c0cb9d9119fa682298
+
                 
 
     let rec caller():Caller =
