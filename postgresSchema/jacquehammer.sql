@@ -1,28 +1,51 @@
-/* ngo table */
-CREATE TABLE ngo (
+﻿/*
+ * create database
+ */
+CREATE DATABASE IF NOT EXISTS jacquehammer WITH
+    ENCODING = "UTF-8",
+    TABLESPACE = "pg_default",
+    ALLOW_CONNECTIONS = true,
+    IS_TEMPLATE = true;
+
+COMMENT
+ON DATABASE jacquehammer
+IS "Added template capability for easy replications
+in the future by non-admins"
+
+
+/*
+ * ngo table
+ */
+CREATE TABLE IF NOT EXISTS ngo (
     id INT PRIMARY KEY NOT NULL,
     ein INT UNIQUE,
-    name STRING(MAX) NOT NULL,
-    einRegistrar STRING(MAX),
-    addressLine1 STRING(MAX) NOT NULL,
-    addressLine2 STRING(MAX),
-    city STRING(MAX) NOT NULL,
-    state STRING(2) NOT NULL,
-    zipcode STRING(12) NOT NULL,
-    phone STRING(12) NOT NULL,
-    fax STRING(12),
-    email STRING(MAX),
-    website STRING(MAX)
+    ngoName VARCHAR NOT NULL,
+    einRegistrar VARCHAR,
+    addressLine1 VARCHAR NOT NULL,
+    addressLine2 VARCHAR,
+    city VARCHAR NOT NULL,
+    state VARCHAR(2) NOT NULL,
+    zipcode VARCHAR(12) NOT NULL,
+    phone VARCHAR(12) NOT NULL,
+    fax VARCHAR(12),
+    email VARCHAR,
+    website VARCHAR
 );
 
-/* ngoDetails table */
-CREATE TABLE ngoDetails (
+
+/*
+ * ngoDetails table
+ */
+CREATE TABLE IF NOT EXISTS ngoDetails (
     annualIncome NUMERIC NOT NULL,
     hasKnownFundingSources BOOLEAN NOT NULL
 );
 
-/* ngoServices table */
-CREATE TABLE ngoServices (
+
+/*
+ * ngoServices table
+ */
+CREATE TABLE IF NOT EXISTS ngoServices (
     id INT NOT NULL,
     maxShelter INT,
     providesShelter BOOLEAN NOT NULL,
@@ -32,8 +55,11 @@ CREATE TABLE ngoServices (
     providesTraining BOOLEAN NOT NULL
 );
 
-/* requestedNeeds as Enumeration to be used as a row in a */
-CREATE TYPE requestedNeeds AS ENUM (
+/*
+ * requestedNeeds as Enumeration to be used as a row in a
+ * table
+ */
+CREATE TYPE requestedneeds AS ENUM (
     'Undefined',
     'Legal',
     'Dental',
