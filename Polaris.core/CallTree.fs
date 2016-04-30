@@ -2,7 +2,7 @@
 
 open System.Collections
 
-module Types =    
+module Types =
 
     type RequestedNeeds =
         | Legal            = 1
@@ -18,11 +18,11 @@ module Types =
         | JobPlacement     = 11
 
 
-    type Caller =      
+    type Caller =
         | Survivor
         | Advocate
 
-    
+
     type NgoType =
         | VictimSafehouse
         | HomelessShelter
@@ -47,7 +47,7 @@ module Types =
         | Referred of CallerRefToOtherNgo //Not helped but referred to another NGO
 
 
-    and CallerRefToOtherNgo = CallerRefToOtherNgo of Followup * Ngo       
+    and CallerRefToOtherNgo = CallerRefToOtherNgo of Followup * Ngo
 
 
   
@@ -70,7 +70,7 @@ module Types =
         | SurvivorAssistance of  Set<RequestedNeeds> //aid for destitute survivor
       
 
-    type Call = Call of Caller * CallerRequest * CallOutcome 
+    type Call = Call of Caller * CallerRequest * CallOutcome
 
 
 
