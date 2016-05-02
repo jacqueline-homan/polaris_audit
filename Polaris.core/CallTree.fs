@@ -50,11 +50,10 @@ module Types =
     and CallerRefToOtherNgo = CallerRefToOtherNgo of Followup * Ngo
 
 
-  
     type PoliceDisp =
         | VictimRescued
         | CopsNoHelp of Followup
-    
+
 
     type CallOutcome =
         | ProvideDirectHelpToVictimOrSurvivor
@@ -68,9 +67,18 @@ module Types =
         | PoliceDispatch //911 coordination for trafficking in progress
         | VictimServices //emergency shelter in victim safehouse
         | SurvivorAssistance of  Set<RequestedNeeds> //aid for destitute survivor
-      
+
 
     type Call = Call of Caller * CallerRequest * CallOutcome
 
 
+    type ReportSubmission =
+        {
+            ngo:            Ngo
+            callerType:     Caller
+            ngoType:        NgoType
+            referrer:       Ngo
+            gotFollowup:    bool
+            
+        }
 
