@@ -16,11 +16,18 @@
     <OutputPath>bin\Debug</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <Externalconsole>true</Externalconsole>
+    <Optimize>true</Optimize>
+    <DefineConstants>
+    </DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <Externalconsole>true</Externalconsole>
+    <Optimize>true</Optimize>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>
+    </DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
@@ -45,22 +52,16 @@
     <Reference Include="System.Data.Entity" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <Compile Include="AssemblyInfo.fs" />
+    <None Include="App.config" />
     <Compile Include="TerminalBuilder.fs" />
     <Compile Include="DatabaseFile.fs" />
     <Compile Include="Program.fs">
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.1\Framework\v4.0\Microsoft.FSharp.Targets" />
-  <ItemGroup>
-    <Folder Include="DataTreeModel.doc\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="DataTreeModel.doc\Polaris data chart part 1.pdf" />
-    <None Include="DataTreeModel.doc\Polaris data chart part 2.pdf" />
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="Polaris.Postgres\Polaris.Postgres.fsproj">
       <Project>{CAE5FF55-2EC1-47B0-B302-1F9236204D5C}</Project>

@@ -37,5 +37,11 @@ Global
 		{F5D3B2E6-98EC-438F-BC28-F1E65C895CCD}.Debug|x86.Build.0 = Debug|x86
 		{F5D3B2E6-98EC-438F-BC28-F1E65C895CCD}.Release|x86.ActiveCfg = Release|x86
 		{F5D3B2E6-98EC-438F-BC28-F1E65C895CCD}.Release|x86.Build.0 = Release|x86
+		<<<<<<< HEAD
+		=======
+		>>>>>>> c9fd19c93f69d02044c613c0cb9d9119fa682298
+		<<<<<<< HEAD
+		=======
+		>>>>>>> c9fd19c93f69d02044c613c0cb9d9119fa682298
 	EndGlobalSection
 EndGlobal

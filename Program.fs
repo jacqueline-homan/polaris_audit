@@ -1,5 +1,4 @@
-﻿// Learn more about F# at http://fsharp.net
-// See the 'F# Tutorial' project for more help.
+﻿
 open System
 open System.IO
 open System.Data
@@ -13,11 +12,11 @@ open Polaris.TerminalBuilder
 
 let rec ngoinfo(Ngo(cat, name)) =
     match cat with
-        | VictimSafehouse -> printfn "Victim Safehouse: **%s**" name
-        | HomelessShelter -> printfn "Homeless Shelter: **%s**" name
-        | PovertyRelief -> printfn "Poverty Relief: **%s**" name
-        | MedicalDentalCare -> printfn "Medical and Dental Help: **%s**" name
-        | SurvivorAid -> printfn "Survivor Assistance: **%s**" name
+        | VictimSafehouse -> printfn "Victim Safehouse: %s" name
+        | HomelessShelter -> printfn "Homeless Shelter: %s" name
+        | PovertyRelief -> printfn "Poverty Relief: %s" name
+        | MedicalDentalCare -> printfn "Medical and Dental Help: %s" name
+        | SurvivorAid -> printfn "Survivor Assistance: %s" name
 
 let rec help(h:Help) =
     match h with
@@ -85,7 +84,8 @@ let fx(rn:Set<RequestedNeeds>)=
         | RequestedNeeds.PermanentHousing -> printfn "Pernament Housing"
         | RequestedNeeds.EducationHelp -> printfn "Education Help"
         | RequestedNeeds.SkillsTraining -> printfn "Skills Training"
-        | RequestedNeeds.JobPlacement  -> printfn "Job Placement") (rn)
+        | RequestedNeeds.JobPlacement  -> printfn "Job Placement"
+        | _ -> printfn" ")(rn)
 
 let caller_req(cr:CallerRequest) = //Done
     match cr with
@@ -93,7 +93,6 @@ let caller_req(cr:CallerRequest) = //Done
     | VictimServices -> printfn "Victim Services"
     | SurvivorAssistance(rn) -> printfn "Survivor Aid"
                                 fx(rn) 
-
 
 let caller_info(c:Caller) = //Done
     match c with
@@ -121,8 +120,6 @@ let main argv =
 
     
     let js = JsonConvert.SerializeObject(ca)
- 
-    //printfn "%s" js
 
     //automatically generates a json file
     use w = new StreamWriter("test.json", false)

@@ -1,5 +1,4 @@
 ﻿namespace Polaris.Core
-
 open System.Collections
 
 module Types =
