@@ -124,12 +124,12 @@ insert into helpprovided (name) values
  */
 create table if not exists callerentry (
     id SERIAL primary key,
+    ngo integer references ngo (id),
     referrer integer references ngo (id),
     callertype integer references callertype (id) not null,
     ngotype integer references ngotype (id) not null,
     helpprovided integer references helpprovided (id),
     didgetfollowup boolean not null
-    
 );
 
 
