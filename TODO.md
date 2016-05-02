@@ -14,6 +14,7 @@
 
 ### Postgres Schema ###
 * [x] Unify separate table scripts into single file `jacquehammer.sql`
+* [x] Complete schema
 
 ### Practice Web ###
 
