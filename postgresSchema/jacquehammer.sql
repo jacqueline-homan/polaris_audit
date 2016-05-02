@@ -17,7 +17,7 @@ in the future by non-admins"
  * ngo table
  */
 CREATE TABLE IF NOT EXISTS ngo (
-    id INT PRIMARY KEY NOT NULL,
+    id SERIAL,
     ein INT UNIQUE,
     ngoName VARCHAR NOT NULL,
     einRegistrar VARCHAR,
@@ -36,7 +36,8 @@ CREATE TABLE IF NOT EXISTS ngo (
 /*
  * ngoDetails table
  */
-CREATE TABLE IF NOT EXISTS ngoDetails (
+CREATE TABLE IF NOT EXISTS ngodetails (
+    id SERIAL,
     annualIncome NUMERIC NOT NULL,
     hasKnownFundingSources BOOLEAN NOT NULL
 );
@@ -45,8 +46,8 @@ CREATE TABLE IF NOT EXISTS ngoDetails (
 /*
  * ngoServices table
  */
-CREATE TABLE IF NOT EXISTS ngoServices (
-    id INT NOT NULL,
+CREATE TABLE IF NOT EXISTS ngoservices (
+    id SERIAL,
     maxShelter INT,
     providesShelter BOOLEAN NOT NULL,
     providesMedical BOOLEAN NOT NULL,
@@ -55,21 +56,37 @@ CREATE TABLE IF NOT EXISTS ngoServices (
     providesTraining BOOLEAN NOT NULL
 );
 
+
 /*
- * requestedNeeds as Enumeration to be used as a row in a
- * table
+ * requested needs changed to table for future needs
  */
-CREATE TYPE requestedneeds AS ENUM (
-    'Undefined',
-    'Legal',
-    'Dental',
-    'Medical',
-    'Vison',
-    'Hearing',
-    'TraumaTherapy',
-    'IncomeSupport',
-    'PermanentHousing',
-    'EducationHelp',
-    'SkillsTraining',
-    'JobPlacement'
+create table if not exists requestedneeds (
+    id SERIAL,
+    needsname varchar
 );
+insert into requestedneeds values
+    ('Undefined'),
+    ('Legal'),
+    ('Dental'),
+    ('Medical'),
+    ('Vison'),
+    ('Hearing'),
+    ('TraumaTherapy'),
+    ('IncomeSupport'),
+    ('PermanentHousing'),
+    ('EducationHelp'),
+    ('SkillsTraining'),
+    ('JobPlacement');
+
+
+/*
+ * callertype may be added to in the future, so perhaps
+ * this should be a table
+ */
+create table if not exists callertype (
+    id SERIAL,
+    type varchar
+);
+insert into callerType (typeName) values
+    ('Survivor'),
+    ('Advocate');
