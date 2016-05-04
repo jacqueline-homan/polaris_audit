@@ -1,6 +1,7 @@
 ﻿
 open System
 open System.IO
+open System.Collections
 open System.Data
 open System.Data.SqlClient
 open System.Data.Linq
@@ -19,10 +20,11 @@ let rec ngoinfo(Ngo(cat, name)) =
         | SurvivorAid -> printfn "Survivor Assistance: %s" name
 
 let rec help(h:Help) =
+//    let rn = h.
     match h with
     | Helped -> printfn "Got all the help requested and needed"
-    | PartiallyHelped (crngo) -> printfn "Only partly helped and still have unmet basic needs"
-                                 callerreftonextngo(crngo)
+    | PartiallyHelped (crngo, rn) -> printfn "Only partly helped and still have unmet basic needs"
+                                     callerreftonextngo(crngo)
     | RanOutOfHelps -> printfn "Exhausted all referrals and still not helped"
     | NotHelped (fu) -> printfn "Denied help (possible discrimination?)"
                         followupper(fu)
@@ -113,8 +115,10 @@ let call_info(Call(ca, cr, co)) = //Done
 let main argv = 
     let c = (caller())
     let cr = (callerRequest())
+    let rn = cr.GetRequestedNeeds()
     //let rn = (needs())
-    let co = (call_outcome())
+    
+    let co = (call_outcome(cr))
     let ca = Call(c, cr,co)
 //    call_info(ca)
 
