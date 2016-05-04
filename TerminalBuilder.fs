@@ -39,8 +39,8 @@ module TerminalBuilder =
                 printfn "Invalid Option"
                 ngo()
 
-    let needs():Set<RequestedNeeds> =
-        let rec nds(s:Set<RequestedNeeds>):Set<RequestedNeeds> = 
+    let needs():Set<UnmetNeeds> =
+        let rec nds(s:Set<UnmetNeeds>):Set<UnmetNeeds> = 
             printfn "What unmet need(s) did you request help with?"
             printfn "Enter one or more of these:"
             printfn "Legal, Dental, Medical, Vison, Hearing"
@@ -53,17 +53,17 @@ module TerminalBuilder =
             | _ ->
                 let n =
                     match response.Trim().ToLower() with
-                    | "legal" -> Some RequestedNeeds.Legal
-                    | "dental" -> Some RequestedNeeds.Dental
-                    | "medical" -> Some RequestedNeeds.Medical
-                    | "vison" -> Some RequestedNeeds.Vison
-                    | "hearing" -> Some RequestedNeeds.Hearing
-                    | "trauma therapy" -> Some RequestedNeeds.TraumaTherapy
-                    | "income support" -> Some RequestedNeeds.IncomeSupport
-                    | "permanent housing" -> Some RequestedNeeds.PermanentHousing
-                    | "educational help" -> Some RequestedNeeds.EducationHelp
-                    | "skills training" -> Some RequestedNeeds.SkillsTraining
-                    | "job placement" -> Some RequestedNeeds.JobPlacement
+                    | "legal" -> Some UnmetNeeds.Legal
+                    | "dental" -> Some UnmetNeeds.Dental
+                    | "medical" -> Some UnmetNeeds.Medical
+                    | "vison" -> Some UnmetNeeds.Vison
+                    | "hearing" -> Some UnmetNeeds.Hearing
+                    | "trauma therapy" -> Some UnmetNeeds.TraumaTherapy
+                    | "income support" -> Some UnmetNeeds.IncomeSupport
+                    | "permanent housing" -> Some UnmetNeeds.PermanentHousing
+                    | "educational help" -> Some UnmetNeeds.EducationHelp
+                    | "skills training" -> Some UnmetNeeds.SkillsTraining
+                    | "job placement" -> Some UnmetNeeds.JobPlacement
                     | _ -> printfn "Invalid entry"
                            None
                 match n with
@@ -71,7 +71,7 @@ module TerminalBuilder =
                 | Some(x) -> nds(s.Add(x))
                              
         
-        nds(new Set<RequestedNeeds>([]))
+        nds(new Set<UnmetNeeds>([]))
          
 
     let rec callerRequest(): CallerRequest =

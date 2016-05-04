@@ -3,7 +3,7 @@ open System.Collections
 
 module Types =
 
-    type RequestedNeeds =
+    type UnmetNeeds =
         | Legal            = 1
         | Dental           = 2
         | Medical          = 3
@@ -35,8 +35,8 @@ module Types =
     type CallerRequest =
         | PoliceDispatch //911 coordination for trafficking in progress
         | VictimServices //emergency shelter in victim safehouse
-        | SurvivorAssistance of Set<RequestedNeeds> //aid for destitute survivor
-        with member cr.GetRequestedNeeds() =
+        | SurvivorAssistance of Set<UnmetNeeds> //aid for destitute survivor
+        with member cr.GetUnmetNeeds() =
                 match cr with
                 | SurvivorAssistance(rn) -> rn
                 | _                     -> Set.empty

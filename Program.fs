@@ -74,20 +74,20 @@ let call_out(co:CallOutcome) (rn: CallerRequest) = //
     | FailedToHelpCaller (fu) -> printfn "Was not helped"
                                  followupper(fu)
 
-let fx(rn:Set<RequestedNeeds>)=
+let fx(rn:Set<UnmetNeeds>)=
     Seq.iter(fun x ->
         match x with
-        | RequestedNeeds.Legal -> printfn "Legal"
-        | RequestedNeeds.Dental -> printfn "Dental"
-        | RequestedNeeds.Medical -> printfn "Medical"
-        | RequestedNeeds.Vison -> printfn "Vison"
-        | RequestedNeeds.Hearing -> printfn "Hearing"
-        | RequestedNeeds.TraumaTherapy -> printfn "Trauma Therapy"
-        | RequestedNeeds.IncomeSupport -> printfn "Income Support"
-        | RequestedNeeds.PermanentHousing -> printfn "Pernament Housing"
-        | RequestedNeeds.EducationHelp -> printfn "Education Help"
-        | RequestedNeeds.SkillsTraining -> printfn "Skills Training"
-        | RequestedNeeds.JobPlacement  -> printfn "Job Placement"
+        | UnmetNeeds.Legal -> printfn "Legal"
+        | UnmetNeeds.Dental -> printfn "Dental"
+        | UnmetNeeds.Medical -> printfn "Medical"
+        | UnmetNeeds.Vison -> printfn "Vison"
+        | UnmetNeeds.Hearing -> printfn "Hearing"
+        | UnmetNeeds.TraumaTherapy -> printfn "Trauma Therapy"
+        | UnmetNeeds.IncomeSupport -> printfn "Income Support"
+        | UnmetNeeds.PermanentHousing -> printfn "Pernament Housing"
+        | UnmetNeeds.EducationHelp -> printfn "Education Help"
+        | UnmetNeeds.SkillsTraining -> printfn "Skills Training"
+        | UnmetNeeds.JobPlacement  -> printfn "Job Placement"
         | _ -> printfn" ")(rn)
 
 let caller_req(cr:CallerRequest) = //Done
@@ -116,7 +116,7 @@ let call_info(Call(ca, cr, co)) = //Done
 let main argv = 
     let c = (caller())
     let cr = (callerRequest())
-    let rn = cr.GetRequestedNeeds()
+    let rn = cr.GetUnmetNeeds()
     //let rn = (needs())
     
     let co = (call_outcome(cr))
