@@ -3,7 +3,7 @@
 open System.Reflection
 open System.Runtime.CompilerServices
 
-[<assembly:AssemblyTitle("Polaris.core")>]
+[<assembly:AssemblyTitle("Polaris.Core")>]
 [<assembly:AssemblyDescription("")>]
 [<assembly:AssemblyConfiguration("")>]
 [<assembly:AssemblyCompany("")>]
