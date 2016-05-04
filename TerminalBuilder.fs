@@ -89,7 +89,7 @@ module TerminalBuilder =
     
    
 
-    let rec followup(cr)=
+    let rec followup(cr: CallerRequest) =
         printfn "Did anyone follow up with you?"
         printfn "1 for Yes"
         printfn "2 for No"      
@@ -111,19 +111,19 @@ module TerminalBuilder =
         printfn "Enter 6 if You were Not Helped But Referred to another NGO"
         let response = Console.ReadLine()
         match response.Trim() with
-            | "1" -> Helped
-            | "2" -> RanOutOfHelps
-            | "3" -> NotHelped (followup(cr))
-            | "4" -> WrongHelp (followup(cr))
+            | "1" -> Helped(CallResult(true), cr)
+            | "2" -> RanOutOfHelps(CallResult(true), cr)
+            | "3" -> NotHelped (followup(cr), cr)
+            | "4" -> WrongHelp (followup(cr), cr)
             | "5" -> PartiallyHelped (refbuilder(cr), cr)
-            | "6" -> Referred (refbuilder(cr))                
+            | "6" -> Referred (refbuilder(cr), cr)                
             | _ -> 
                    printfn "Invalid Option"
                    helpbuilder(cr)
 
     and refbuilder (cr: CallerRequest): CallerRefToOtherNgo =
         let n = ngo()
-        let f = followup(cr) // TODO: grab a CallerRequest from somewhere
+        let f = followup(cr)
         CallerRefToOtherNgo (f, n)            
                 
     
@@ -147,7 +147,7 @@ module TerminalBuilder =
         match reply.Trim() with
             | "1" -> ProvideDirectHelpToVictimOrSurvivor  
             | "2" -> EmergencyResponse (police_disp(cr))//need function that creates the ngo stuff
-            | "3" -> CallerRef (refbuilder(cr))
+            | "3" -> CallerRef (refbuilder(cr), cr)
             | "4" -> FailedToHelpCaller (followup(cr))
             | "5" -> DisconnectCall (followup(cr))
             | _ -> printfn "Invalid selection"

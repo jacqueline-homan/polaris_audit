@@ -7,7 +7,6 @@ open System.Data.SqlClient
 open System.Data.Linq
 open Microsoft.FSharp.Data
 open Newtonsoft.Json
-open Polaris.PolarisSux
 open Polaris.Core.Types
 open Polaris.TerminalBuilder
 
@@ -22,19 +21,21 @@ let rec ngoinfo(Ngo(cat, name)) =
 let rec help(h:Help) =
 //    let rn = h.
     match h with
-    | Helped -> printfn "Got all the help requested and needed"
+    | Helped(CallResult(true), rn) -> printfn "Got all the help requested and needed"
     | PartiallyHelped (crngo, rn) -> printfn "Only partly helped and still have unmet basic needs"
-                                     callerreftonextngo(crngo)
-    | RanOutOfHelps -> printfn "Exhausted all referrals and still not helped"
-    | NotHelped (fu) -> printfn "Denied help (possible discrimination?)"
-                        followupper(fu)
-    | WrongHelp (fu) -> printfn "Offered help but not the help I needed"
-                        followupper(fu)
-    | Referred(crngo) -> printfn "Not helped but referred to another NGO"
-                         callerreftonextngo(crngo)
+                                     // So, hey, you got partially, helped. Did you get a referral, as well?
+                                     let nrn = CallerRequest.SurvivorAssistance(needs())
+                                     callerreftonextngo(crngo, nrn)
+    | RanOutOfHelps(CallResult(false), rn) -> printfn "Exhausted all referrals and still not helped"
+    | NotHelped (fu, rn) -> printfn "Denied help (possible discrimination?)"
+                            followupper(fu)
+    | WrongHelp (fu, rn) -> printfn "Offered help but not the help I needed"
+                            followupper(fu)
+    | Referred(crngo, rn) -> printfn "Not helped but referred to another NGO"
+                             callerreftonextngo (crngo, rn)
                          
 
-and callerreftonextngo(CallerRefToOtherNgo(fu, ng)) =
+and callerreftonextngo(CallerRefToOtherNgo(fu, ng), nrn) =
     printfn "Caller referred to another NGO:" 
     ngoinfo(ng)
     followupper(fu)
@@ -57,16 +58,16 @@ let outcome_of_poldisp(pd) =
         followupper(fu)
 
 
-let call_out(co:CallOutcome) = //
+let call_out(co:CallOutcome) (rn: CallerRequest) = //
     match co with
     | ProvideDirectHelpToVictimOrSurvivor -> printfn "Polaris directly helped victim or survivor"
     | EmergencyResponse (pd)  ->  
         printfn "Polaris operator dispatched 911"
         outcome_of_poldisp(pd)
         
-    | CallerRef (crngo) -> 
+    | CallerRef (crngo, rn) -> 
         printfn "Polaris referred me to another NGO"
-        callerreftonextngo(crngo)
+        callerreftonextngo(crngo, rn)
     | DisconnectCall (fu) -> 
         printfn "Call got disconnected"
         followupper(fu)
