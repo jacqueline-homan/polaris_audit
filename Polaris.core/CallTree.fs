@@ -30,21 +30,29 @@ module Types =
         | SurvivorAid
 
     type Ngo = Ngo of NgoType * string
-      
+
+    type CallerRequest =
+        | PoliceDispatch //911 coordination for trafficking in progress
+        | VictimServices //emergency shelter in victim safehouse
+        | SurvivorAssistance of Set<RequestedNeeds> //aid for destitute survivor
+        with member cr.GetRequestedNeeds() =
+                match cr with
+                | SurvivorAssistance(rn) -> rn
+                | _                     -> Set.empty
+
     type Followup =
         | NotFollowedUp of Help// No one followed up with caller
         | FollowedUp of Help //Follow-upper obtains help or referral for caller
         //| CallerSelfFollow of Help // Victim/survivor left to navigate on own
          
-
+    
     and Help = //Whether the NGO Polaris referred callerr to helped caller
         | Helped //Caller gets the help they needed
-        | PartiallyHelped of CallerRefToOtherNgo //Survivor only gets some of their urgent unmet needs met but not all
+        | PartiallyHelped of CallerRefToOtherNgo * CallerRequest //Survivor only gets some of their urgent unmet needs met but not all
         | RanOutOfHelps //Follow-upper or caller has exhausted all possible options
         | NotHelped of Followup // Not helped (possible discrimination? Lack of resources?)
         | WrongHelp of Followup //Offered help but not the kind of help that was needed
         | Referred of CallerRefToOtherNgo //Not helped but referred to another NGO
-
 
     and CallerRefToOtherNgo = CallerRefToOtherNgo of Followup * Ngo
 
@@ -62,10 +70,7 @@ module Types =
         | FailedToHelpCaller of Followup
 
 
-    type CallerRequest =
-        | PoliceDispatch //911 coordination for trafficking in progress
-        | VictimServices //emergency shelter in victim safehouse
-        | SurvivorAssistance of  Set<RequestedNeeds> //aid for destitute survivor
+
 
 
     type Call = Call of Caller * CallerRequest * CallOutcome
@@ -73,11 +78,10 @@ module Types =
 
     type ReportSubmission =
         {
-            ngo:            Ngo
-            callerType:     Caller
-            ngoType:        NgoType
-            referrer:       Ngo
-            gotFollowup:    bool
-            
+            Ngo:            Ngo
+            CallerType:     Caller
+            NgoType:        NgoType
+            Referrer:       Ngo
+            GotFollowup:    bool
         }
 

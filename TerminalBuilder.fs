@@ -89,19 +89,19 @@ module TerminalBuilder =
     
    
 
-    let rec followup()=
+    let rec followup(cr)=
         printfn "Did anyone follow up with you?"
         printfn "1 for Yes"
         printfn "2 for No"      
         let reply = Console.ReadLine()
         match reply.Trim() with
-            | "1" -> FollowedUp (helpbuilder())           
-            | "2" -> NotFollowedUp (helpbuilder())
+            | "1" -> FollowedUp (helpbuilder(cr))           
+            | "2" -> NotFollowedUp (helpbuilder(cr))
             //| "3" -> CallerSelfFollow (helpbuilder())
             | _ -> printfn "Invalid option"
-                   followup()
+                   followup(cr)
 
-    and helpbuilder():Help = 
+    and helpbuilder (cr: CallerRequest ) :Help = 
         printfn "What kind of help did you get?"
         printfn "Enter 1 if You got all the help you needed"
         printfn "Enter 2 if Not Helped and all options were exhausted"
@@ -113,30 +113,30 @@ module TerminalBuilder =
         match response.Trim() with
             | "1" -> Helped
             | "2" -> RanOutOfHelps
-            | "3" -> NotHelped (followup())
-            | "4" -> WrongHelp (followup())
-            | "5" -> PartiallyHelped (refbuilder())
-            | "6" -> Referred (refbuilder())                
+            | "3" -> NotHelped (followup(cr))
+            | "4" -> WrongHelp (followup(cr))
+            | "5" -> PartiallyHelped (refbuilder(cr), cr)
+            | "6" -> Referred (refbuilder(cr))                
             | _ -> 
                    printfn "Invalid Option"
-                   helpbuilder()
+                   helpbuilder(cr)
 
-    and refbuilder():CallerRefToOtherNgo =
+    and refbuilder (cr: CallerRequest): CallerRefToOtherNgo =
         let n = ngo()
-        let f = followup()       
+        let f = followup(cr) // TODO: grab a CallerRequest from somewhere
         CallerRefToOtherNgo (f, n)            
                 
     
-    let rec police_disp():PoliceDisp =
+    let rec police_disp(cr: CallerRequest):PoliceDisp =
         printfn "Did police rescue victim? (Enter Y for Yes and N for No:"
         let reply = Console.ReadLine()
         match reply.Trim() with
             | "Y" -> VictimRescued
-            | "N" -> CopsNoHelp (followup())
+            | "N" -> CopsNoHelp (followup(cr))
             | _ -> printfn "Invalid Selection"
-                   police_disp()
+                   police_disp(cr)
 
-    let rec call_outcome():CallOutcome =
+    let rec call_outcome (cr: CallerRequest): CallOutcome =
         printfn "What help did Polaris provide?"
         printfn "Enter 1 for Polaris provided victim/survivor aid to me"
         printfn "Enter 2 for Polaris operator dispatched 911"
@@ -146,11 +146,11 @@ module TerminalBuilder =
         let reply = Console.ReadLine()
         match reply.Trim() with
             | "1" -> ProvideDirectHelpToVictimOrSurvivor  
-            | "2" -> EmergencyResponse (police_disp())//need function that creates the ngo stuff
-            | "3" -> CallerRef (refbuilder())
-            | "4" -> FailedToHelpCaller (followup())
-            | "5" -> DisconnectCall (followup())
+            | "2" -> EmergencyResponse (police_disp(cr))//need function that creates the ngo stuff
+            | "3" -> CallerRef (refbuilder(cr))
+            | "4" -> FailedToHelpCaller (followup(cr))
+            | "5" -> DisconnectCall (followup(cr))
             | _ -> printfn "Invalid selection"
-                   call_outcome()
+                   call_outcome(cr)
 
                    
