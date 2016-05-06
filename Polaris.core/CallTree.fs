@@ -36,9 +36,9 @@ module Types =
         | PoliceDispatch //911 coordination for trafficking in progress
         | VictimServices //emergency shelter in victim safehouse
         | SurvivorAssistance of Set<UnmetNeeds> //aid for destitute survivor
-        with member cr.GetUnmetNeeds() =
+        member cr.GetUnmetNeeds() =
                 match cr with
-                | SurvivorAssistance(rn) -> rn
+                | SurvivorAssistance(un) -> un
                 | _                     -> Set.empty
 
     type Followup =

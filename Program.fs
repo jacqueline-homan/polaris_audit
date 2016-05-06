@@ -21,18 +21,18 @@ let rec ngoinfo(Ngo(cat, name)) =
 let rec help(h:Help) =
 //    let rn = h.
     match h with
-    | Helped(CallResult(true), rn) -> printfn "Got all the help requested and needed"
-    | PartiallyHelped (crngo, rn) -> printfn "Only partly helped and still have unmet basic needs"
+    | Helped(CallResult(true), un) -> printfn "Got all the help requested and needed"
+    | PartiallyHelped (crngo, un) -> printfn "Only partly helped and still have unmet basic needs"
                                      // So, hey, you got partially, helped. Did you get a referral, as well?
                                      let nrn = CallerRequest.SurvivorAssistance(needs())
                                      callerreftonextngo(crngo, nrn)
-    | RanOutOfHelps(CallResult(false), rn) -> printfn "Exhausted all referrals and still not helped"
-    | NotHelped (fu, rn) -> printfn "Denied help (possible discrimination?)"
+    | RanOutOfHelps(CallResult(false), un) -> printfn "Exhausted all referrals and still not helped"
+    | NotHelped (fu, un) -> printfn "Denied help (possible discrimination?)"
                             followupper(fu)
-    | WrongHelp (fu, rn) -> printfn "Offered help but not the help I needed"
+    | WrongHelp (fu, un) -> printfn "Offered help but not the help I needed"
                             followupper(fu)
-    | Referred(crngo, rn) -> printfn "Not helped but referred to another NGO"
-                             callerreftonextngo (crngo, rn)
+    | Referred(crngo, un) -> printfn "Not helped but referred to another NGO"
+                             callerreftonextngo (crngo, un)
                          
 
 and callerreftonextngo(CallerRefToOtherNgo(fu, ng), nrn) =
@@ -74,7 +74,7 @@ let call_out(co:CallOutcome) (rn: CallerRequest) = //
     | FailedToHelpCaller (fu) -> printfn "Was not helped"
                                  followupper(fu)
 
-let fx(rn:Set<UnmetNeeds>)=
+let fx(un:Set<UnmetNeeds>)=
     Seq.iter(fun x ->
         match x with
         | UnmetNeeds.Legal -> printfn "Legal"
@@ -88,14 +88,14 @@ let fx(rn:Set<UnmetNeeds>)=
         | UnmetNeeds.EducationHelp -> printfn "Education Help"
         | UnmetNeeds.SkillsTraining -> printfn "Skills Training"
         | UnmetNeeds.JobPlacement  -> printfn "Job Placement"
-        | _ -> printfn" ")(rn)
+        | _ -> printfn" ")(un)
 
 let caller_req(cr:CallerRequest) = //Done
     match cr with
     | PoliceDispatch -> printfn "911 dispatch to rescue victim"
     | VictimServices -> printfn "Victim Services"
-    | SurvivorAssistance(rn) -> printfn "Survivor Aid"
-                                fx(rn) 
+    | SurvivorAssistance(un) -> printfn "Survivor Aid"
+                                fx(un) 
 
 let caller_info(c:Caller) = //Done
     match c with
@@ -116,6 +116,7 @@ let call_info(Call(ca, cr, co)) = //Done
 let main argv = 
     let c = (caller())
     let cr = (callerRequest())
+    let un = cr.GetUnmetNeeds()
     let rn = cr.GetUnmetNeeds()
     //let rn = (needs())
     

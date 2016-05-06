@@ -87,7 +87,37 @@ module TerminalBuilder =
             | _ -> printfn "Invalid option"
                    callerRequest()                                  
     
-   
+    let remainingUnmetNeeds():Set<UnmetNeeds> =
+        let rec nds(s:Set<UnmetNeeds>):Set<UnmetNeeds> = 
+            printfn "What remaining unmet needs have you still not been helped with?"
+            printfn "Legal, Dental, Medical, Vison, Hearing"
+            printfn "Trauma Therapy, Income Support, Permanent Housing"
+            printfn "Educational Help, Skills Training, Job Placement"
+            printfn "Enter 'Done' when finished"
+            let response = Console.ReadLine()
+            match response.Trim().ToLower() with
+            | "done" -> s
+            | _ ->
+                let n =
+                    match response.Trim().ToLower() with
+                    | "legal" -> Some UnmetNeeds.Legal
+                    | "dental" -> Some UnmetNeeds.Dental
+                    | "medical" -> Some UnmetNeeds.Medical
+                    | "vison" -> Some UnmetNeeds.Vison
+                    | "hearing" -> Some UnmetNeeds.Hearing
+                    | "trauma therapy" -> Some UnmetNeeds.TraumaTherapy
+                    | "income support" -> Some UnmetNeeds.IncomeSupport
+                    | "permanent housing" -> Some UnmetNeeds.PermanentHousing
+                    | "educational help" -> Some UnmetNeeds.EducationHelp
+                    | "skills training" -> Some UnmetNeeds.SkillsTraining
+                    | "job placement" -> Some UnmetNeeds.JobPlacement
+                    | _ -> printfn "Invalid entry"
+                           None
+                match n with
+                | None -> nds(s)
+                | Some(x) -> nds(s.Add(x))                             
+        
+        nds(new Set<UnmetNeeds>([]))
 
     let rec followup(cr: CallerRequest) =
         printfn "Did anyone follow up with you?"
