@@ -115,7 +115,8 @@ module TerminalBuilder =
             | "2" -> RanOutOfHelps(CallResult(true), cr)
             | "3" -> NotHelped (followup(cr), cr)
             | "4" -> WrongHelp (followup(cr), cr)
-            | "5" -> PartiallyHelped (refbuilder(cr), cr)
+            // TODO: 2nd param needs a function to ask for needs met to eliminate from the set of RequestedNeeds
+            | "5" -> PartiallyHelped (refbuilder(cr), servicesprovided(cr)) 
             | "6" -> Referred (refbuilder(cr), cr)                
             | _ -> 
                    printfn "Invalid Option"
@@ -124,9 +125,8 @@ module TerminalBuilder =
     and refbuilder (cr: CallerRequest): CallerRefToOtherNgo =
         let n = ngo()
         let f = followup(cr)
-        CallerRefToOtherNgo (f, n)            
-                
-    
+        CallerRefToOtherNgo (f, n)
+
     let rec police_disp(cr: CallerRequest):PoliceDisp =
         printfn "Did police rescue victim? (Enter Y for Yes and N for No:"
         let reply = Console.ReadLine()
@@ -152,5 +152,3 @@ module TerminalBuilder =
             | "5" -> DisconnectCall (followup(cr))
             | _ -> printfn "Invalid selection"
                    call_outcome(cr)
-
-                   
