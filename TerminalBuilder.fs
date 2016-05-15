@@ -116,8 +116,8 @@ module TerminalBuilder =
             | "3" -> NotHelped (followup(cr), cr)
             | "4" -> WrongHelp (followup(cr), cr)
             // TODO: 2nd param needs a function to ask for needs met to eliminate from the set of RequestedNeeds
-            | "5" -> PartiallyHelped (refbuilder(cr), servicesprovided(cr)) 
-            | "6" -> Referred (refbuilder(cr), cr)                
+            | "5" -> PartiallyHelped (refbuilder(cr), SurvivorAssistance(cr.GetUnmetNeeds())) 
+            | "6" -> Referred (refbuilder(cr), cr)
             | _ -> 
                    printfn "Invalid Option"
                    helpbuilder(cr)
