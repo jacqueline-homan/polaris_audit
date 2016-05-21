@@ -145,7 +145,12 @@ module TerminalBuilder =
             | "2" -> RanOutOfHelps(CallResult(true), cr)
             | "3" -> NotHelped (followup(cr), cr)
             | "4" -> WrongHelp (followup(cr), cr)
-            | "5" -> PartiallyHelped (refbuilder(cr), cr)
+            // TODO fill in the set with Needs met
+            | "5" ->
+                // get input for needs that were met
+                let helpedWith = remainingUnmetNeeds()
+                PartiallyHelped (helpedWith, refbuilder(cr), cr)
+
             | "6" -> Referred (refbuilder(cr), cr)                
             | _ -> 
                    printfn "Invalid Option"

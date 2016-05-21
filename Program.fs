@@ -9,6 +9,7 @@ open Microsoft.FSharp.Data
 open Newtonsoft.Json
 open Polaris.Core.Types
 open Polaris.TerminalBuilder
+open Polaris.CallSummary
 
 let rec ngoinfo(Ngo(cat, name)) =
     match cat with
@@ -22,10 +23,14 @@ let rec help(h:Help) =
 //    let rn = h.
     match h with
     | Helped(CallResult(true), un) -> printfn "Got all the help requested and needed"
-    | PartiallyHelped (crngo, un) -> printfn "Only partly helped and still have unmet basic needs"
-                                     // So, hey, you got partially, helped. Did you get a referral, as well?
-                                     let nrn = CallerRequest.SurvivorAssistance(needs())
-                                     callerreftonextngo(crngo, nrn)
+    // TODO check what this branch should do
+    | Helped(CallResult(false), un) -> printfn "???"
+    // TODO properly deal with Set<Need>
+    | PartiallyHelped (metNeeds, crngo, un) -> 
+        printfn "Only partly helped and still have unmet basic needs"
+        // So, hey, you got partially, helped. Did you get a referral, as well?
+        let nrn = CallerRequest.SurvivorAssistance(needs())
+        callerreftonextngo(crngo, nrn)
     | RanOutOfHelps(CallResult(false), un) -> printfn "Exhausted all referrals and still not helped"
     | NotHelped (fu, un) -> printfn "Denied help (possible discrimination?)"
                             followupper(fu)
@@ -109,11 +114,15 @@ let call_info(Call(ca, cr, co)) = //Done
 
     caller_info(ca)
     caller_req(cr)
-    call_out(co)
-  
+    call_out(co)  
 
 [<EntryPoint>]
 let main argv = 
+
+// 1. Ask questions to create a Call
+// 2. Display a summary of the Call
+// 3. Save the Call
+
     let c = (caller())
     let cr = (callerRequest())
     let un = cr.GetUnmetNeeds()
@@ -124,7 +133,9 @@ let main argv =
     let ca = Call(c, cr,co)
 //    call_info(ca)
 
-    
+    // product the Call summary    
+    createReport ca
+
     let js = JsonConvert.SerializeObject(ca)
 
     //automatically generates a json file
