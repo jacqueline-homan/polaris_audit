@@ -3,9 +3,9 @@
 module TerminalBuilder =
     open System
     open System.IO
+    open FSharp.Collections
     open Polaris.Core.Types
 
-                
 
     let rec caller():Caller =
         printfn "Are you reporting as a victim, survivor, or advocate?"
@@ -15,8 +15,8 @@ module TerminalBuilder =
         match response.Trim() with
             | "1" -> Survivor
             | "2" -> Advocate
-            | _ -> printfn "Invalid Response"
-                   caller()
+            | _   -> printfn "Invalid Response"
+                     caller()
 
     let rec ngo():Ngo =
         printfn "What kind of NGO were you referred to?"
@@ -35,9 +35,8 @@ module TerminalBuilder =
             | "3" -> Ngo(PovertyRelief, resp)
             | "4" -> Ngo(MedicalDentalCare, resp)
             | "5" -> Ngo (SurvivorAid, resp)
-            | _ ->
-                printfn "Invalid Option"
-                ngo()
+            | _   -> printfn "Invalid Option"
+                     ngo()
 
     let needs():Set<UnmetNeeds> =
         let rec nds(s:Set<UnmetNeeds>):Set<UnmetNeeds> = 
@@ -53,26 +52,58 @@ module TerminalBuilder =
             | _ ->
                 let n =
                     match response.Trim().ToLower() with
-                    | "legal" -> Some UnmetNeeds.Legal
-                    | "dental" -> Some UnmetNeeds.Dental
-                    | "medical" -> Some UnmetNeeds.Medical
-                    | "vison" -> Some UnmetNeeds.Vison
-                    | "hearing" -> Some UnmetNeeds.Hearing
-                    | "trauma therapy" -> Some UnmetNeeds.TraumaTherapy
-                    | "income support" -> Some UnmetNeeds.IncomeSupport
+                    | "legal"             -> Some UnmetNeeds.Legal
+                    | "dental"            -> Some UnmetNeeds.Dental
+                    | "medical"           -> Some UnmetNeeds.Medical
+                    | "vison"             -> Some UnmetNeeds.Vison
+                    | "hearing"           -> Some UnmetNeeds.Hearing
+                    | "trauma therapy"    -> Some UnmetNeeds.TraumaTherapy
+                    | "income support"    -> Some UnmetNeeds.IncomeSupport
                     | "permanent housing" -> Some UnmetNeeds.PermanentHousing
-                    | "educational help" -> Some UnmetNeeds.EducationHelp
-                    | "skills training" -> Some UnmetNeeds.SkillsTraining
-                    | "job placement" -> Some UnmetNeeds.JobPlacement
-                    | _ -> printfn "Invalid entry"
-                           None
+                    | "educational help"  -> Some UnmetNeeds.EducationHelp
+                    | "skills training"   -> Some UnmetNeeds.SkillsTraining
+                    | "job placement"     -> Some UnmetNeeds.JobPlacement
+                    | _                   -> printfn "Invalid entry"
+                                             None
                 match n with
                 | None -> nds(s)
                 | Some(x) -> nds(s.Add(x))
-                             
         
         nds(new Set<UnmetNeeds>([]))
-         
+
+    // TODO: untested code, written by whim - jeroldhaas
+    let metneeds (unmetNeeds: Set<UnmetNeeds>) :Set<UnmetNeeds> =
+        let rec umnds (s :Set<UnmetNeeds>) :Set<UnmetNeeds> =
+            printfn "What needs did you get help with?"
+            printfn "Enter one or more of these:"
+            printfn "Legal, Dental, Medical, Vision, Hearing"
+            printfn "Trauma Therapy, Income Support, Permanent Housing"
+            printfn "Educational Help, Skills Training, Job Placement"
+            printfn "Enter 'Done' when finished"
+            let response = Console.ReadLine()
+            match response.Trim().ToLower() with
+            | "done" -> s
+            | _ ->
+                let n =
+                    match response.Trim().ToLower() with
+                    | "legal"             -> Some UnmetNeeds.Legal
+                    | "dental"            -> Some UnmetNeeds.Dental
+                    | "medical"           -> Some UnmetNeeds.Medical
+                    | "vison"             -> Some UnmetNeeds.Vison
+                    | "hearing"           -> Some UnmetNeeds.Hearing
+                    | "trauma therapy"    -> Some UnmetNeeds.TraumaTherapy
+                    | "income support"    -> Some UnmetNeeds.IncomeSupport
+                    | "permanent housing" -> Some UnmetNeeds.PermanentHousing
+                    | "educational help"  -> Some UnmetNeeds.EducationHelp
+                    | "skills training"   -> Some UnmetNeeds.SkillsTraining
+                    | "job placement"     -> Some UnmetNeeds.JobPlacement
+                    | _                   -> printfn "Invalid entry"
+                                             None
+                match n with
+                | None    -> umnds(s)
+                | Some(x) -> if s.Contains(x) then umnds(s.Remove(x))
+                             else umnds(s)
+        umnds(unmetNeeds)
 
     let rec callerRequest(): CallerRequest =
         printfn "Please enter what help you requested"
@@ -85,9 +116,7 @@ module TerminalBuilder =
             | "2" -> SurvivorAssistance (needs())
             | "3" -> PoliceDispatch
             | _ -> printfn "Invalid option"
-                   callerRequest()                                  
-    
-   
+                   callerRequest()
 
     let rec followup(cr: CallerRequest) =
         printfn "Did anyone follow up with you?"
@@ -115,12 +144,14 @@ module TerminalBuilder =
             | "2" -> RanOutOfHelps(CallResult(true), cr)
             | "3" -> NotHelped (followup(cr), cr)
             | "4" -> WrongHelp (followup(cr), cr)
-            // TODO: 2nd param needs a function to ask for needs met to eliminate from the set of RequestedNeeds
-            | "5" -> PartiallyHelped (refbuilder(cr), SurvivorAssistance(cr.GetUnmetNeeds())) 
+            // HACK: did some shimming in bits here. Perhaps there's another | better way? - jeroldhaas
+            | "5" -> let mn = metneeds(cr.GetUnmetNeeds())
+                     let newcr = SurvivorAssistance(mn)
+                     PartiallyHelped (refbuilder(newcr), newcr)
             | "6" -> Referred (refbuilder(cr), cr)
-            | _ -> 
-                   printfn "Invalid Option"
-                   helpbuilder(cr)
+            | _ ->
+                  printfn "Invalid Option"
+                  helpbuilder(cr)
 
     and refbuilder (cr: CallerRequest): CallerRefToOtherNgo =
         let n = ngo()
