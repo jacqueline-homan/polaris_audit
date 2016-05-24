@@ -130,7 +130,7 @@ module TerminalBuilder =
             | _ -> printfn "Invalid option"
                    followup(cr)
 
-    and helpbuilder (cr: CallerRequest ) :Help = 
+    and helpbuilder (cr: CallerRequest) :Help = 
         printfn "What kind of help did you get?"
         printfn "Enter 1 if You got all the help you needed"
         printfn "Enter 2 if Not Helped and all options were exhausted"
