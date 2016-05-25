@@ -116,9 +116,10 @@ module TerminalBuilder =
             | "2" -> SurvivorAssistance (needs())
             | "3" -> PoliceDispatch
             | _ -> printfn "Invalid option"
-                   callerRequest()
 
-    let rec followup(cr: CallerRequest) =
+                   callerRequest()                                  
+    
+        let rec followup(cr: CallerRequest) =
         printfn "Did anyone follow up with you?"
         printfn "1 for Yes"
         printfn "2 for No"      

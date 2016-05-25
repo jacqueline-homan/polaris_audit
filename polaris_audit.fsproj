@@ -19,6 +19,7 @@
     <Optimize>true</Optimize>
     <DefineConstants>
     </DefineConstants>
+    <ExternalConsole>true</ExternalConsole>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\Release</OutputPath>
@@ -50,6 +51,15 @@
       <HintPath>packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
+    <Reference Include="linq2db">
+      <HintPath>packages\linq2db.1.0.7.4\lib\net45\linq2db.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -57,11 +67,14 @@
     <None Include="App.config" />
     <Compile Include="TerminalBuilder.fs" />
     <Compile Include="DatabaseFile.fs" />
+    <Compile Include="CallSummary.fs" />
     <Compile Include="Program.fs">
     </Compile>
+    <None Include="TODO.txt" />
+    <None Include="CallsExamples.fsx" />
+    <None Include="CallSummary.fsx" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.1\Framework\v4.0\Microsoft.FSharp.Targets" />
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="Polaris.Postgres\Polaris.Postgres.fsproj">
       <Project>{CAE5FF55-2EC1-47B0-B302-1F9236204D5C}</Project>

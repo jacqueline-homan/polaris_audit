@@ -36,9 +36,9 @@ module Types =
         | PoliceDispatch //911 coordination for trafficking in progress
         | VictimServices //emergency shelter in victim safehouse
         | SurvivorAssistance of Set<UnmetNeeds> //aid for destitute survivor
-        with member cr.GetUnmetNeeds() =
+        member cr.GetUnmetNeeds() =
                 match cr with
-                | SurvivorAssistance(rn) -> rn
+                | SurvivorAssistance(un) -> un
                 | _                     -> Set.empty
 
     type Followup =
@@ -50,7 +50,9 @@ module Types =
     
     and Help = //Whether the NGO Polaris referred callerr to helped caller
         | Helped of CallResult * CallerRequest //Caller gets the help they needed
-        | PartiallyHelped of CallerRefToOtherNgo * CallerRequest //Survivor only gets some of their urgent unmet needs met but not all
+        // Set of UnmetNeeds = the needs you have been helped with at that NGO
+        | PartiallyHelped of Set<UnmetNeeds> * CallerRefToOtherNgo * CallerRequest //Survivor only gets some of their urgent unmet needs met but not all
+        //| PartiallyHelped of CallerRefToOtherNgo * CallerRequest //Survivor only gets some of their urgent unmet needs met but not all
         | RanOutOfHelps of CallResult * CallerRequest //Follow-upper or caller has exhausted all possible options
         | NotHelped of Followup * CallerRequest // Not helped (possible discrimination? Lack of resources?)
         | WrongHelp of Followup * CallerRequest //Offered help but not the kind of help that was needed
@@ -75,7 +77,7 @@ module Types =
 
 
 
-    type Call = Call of Caller * CallerRequest * CallOutcome
+    type Call = Call of Caller * CallerRequest * CallOutcome 
 
 
     type ReportSubmission =
