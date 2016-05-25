@@ -1,8 +1,8 @@
-
 # JacqueHammer - TODO List #
 
 ## Maintenance / Housekeeping ##
 * [x] Compare `~/postgresSchema/ngoDataWorkbook.ods` with GDrive file
+* [ ] Trim solution of cruft _(see **Code** sections below)_
 
 ## Code ##
 
@@ -17,5 +17,11 @@
 * [x] Complete schema
 
 ### Practice Web ###
+* [ ] Is this needed any longer? Cull if not.
 
 ### World Bank Schema ###
+* [ ] Is this needed any longer? Cull if not.
+
+### Linq2Db.Templates ###
+* [ ] Is this needed _at all_? Cull, if not.
+
