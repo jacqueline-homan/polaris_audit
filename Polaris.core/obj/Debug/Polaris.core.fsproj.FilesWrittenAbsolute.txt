@@ -1,5 +1,5 @@
-/home/jacque/Projects/F-sharp/polaris_audit/Polaris.core/obj/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.fs
-/home/jacque/Projects/F-sharp/polaris_audit/Polaris.core/bin/Debug/Polaris.core.dll.mdb
-/home/jacque/Projects/F-sharp/polaris_audit/Polaris.core/bin/Debug/Polaris.core.dll
-/home/jacque/Projects/F-sharp/polaris_audit/Polaris.core/obj/Debug/Polaris.core.dll
-/home/jacque/Projects/F-sharp/polaris_audit/Polaris.core/obj/Debug/Polaris.core.dll.mdb
+/Users/jacquelinehoman/Projects/F-sharp/polaris_audit/Polaris.core/obj/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.fs
+/Users/jacquelinehoman/Projects/F-sharp/polaris_audit/Polaris.core/bin/Debug/Polaris.Core.dll.mdb
+/Users/jacquelinehoman/Projects/F-sharp/polaris_audit/Polaris.core/bin/Debug/Polaris.Core.dll
+/Users/jacquelinehoman/Projects/F-sharp/polaris_audit/Polaris.core/obj/Debug/Polaris.Core.dll
+/Users/jacquelinehoman/Projects/F-sharp/polaris_audit/Polaris.core/obj/Debug/Polaris.Core.dll.mdb

@@ -117,17 +117,48 @@ module TerminalBuilder =
             | "3" -> PoliceDispatch
             | _ -> printfn "Invalid option"
 
-                   callerRequest()                                  
+                   callerRequest() 
     
-        let rec followup(cr: CallerRequest) =
-        printfn "Did anyone follow up with you?"
+    let remainingUnmetNeeds() : Set<UnmetNeeds> =
+        let rec nds (s:Set<UnmetNeeds>) : Set<UnmetNeeds> =
+            printfn "What remaining unmet needs have you still not been helped with?"
+            printfn "Legal, Dental, Medical, Vision, Hearing"
+            printfn "Trauma Therapy, Income Support, Permanent Housing"
+            printfn "Educational Help, Skills Training, Job Placement"
+            printfn "EnTextReader 'Done' whend finished"
+            let response = Console.ReadLine()
+            match response.Trim().ToLower() with
+            |"done" -> s 
+            | _ -> 
+                let n = 
+                    match response.Trim().ToLower() with 
+                    | "legal" -> Some UnmetNeeds.Legal
+                    | "dental" -> Some UnmetNeeds.Dental
+                    | "medical" -> Some UnmetNeeds.Medical
+                    | "vision" -> Some UnmetNeeds.Vison
+                    | "hearing" -> Some UnmetNeeds.Hearing
+                    | "trauma therapy" -> Some UnmetNeeds.TraumaTherapy
+                    | "income support" -> Some UnmetNeeds.IncomeSupport
+                    | "permanent housing" -> Some UnmetNeeds.PermanentHousing
+                    | "educational help" -> Some UnmetNeeds.EducationHelp
+                    | "skills training" -> Some UnmetNeeds.SkillsTraining
+                    | "job placement" -> Some UnmetNeeds.JobPlacement
+                    | _ -> printfn "Invalid Entry"
+                           None 
+                match n with 
+                | None -> nds(s)
+                | Some(x) -> nds(s.Add(x))
+        nds(new Set<UnmetNeeds>([]))             
+    
+    let rec followup(cr: CallerRequest) =
+        printfn "Did any caseworker follow up with you?"
         printfn "1 for Yes"
         printfn "2 for No"      
         let reply = Console.ReadLine()
         match reply.Trim() with
             | "1" -> FollowedUp (helpbuilder(cr))           
             | "2" -> NotFollowedUp (helpbuilder(cr))
-            //| "3" -> CallerSelfFollow (helpbuilder())
+                //| "3" -> CallerSelfFollow (helpbuilder())
             | _ -> printfn "Invalid option"
                    followup(cr)
 
@@ -146,9 +177,10 @@ module TerminalBuilder =
             | "3" -> NotHelped (followup(cr), cr)
             | "4" -> WrongHelp (followup(cr), cr)
             // HACK: did some shimming in bits here. Perhaps there's another | better way? - jeroldhaas
-            | "5" -> let mn = metneeds(cr.GetUnmetNeeds())
-                     let newcr = SurvivorAssistance(mn)
-                     PartiallyHelped (refbuilder(newcr), newcr)
+            //TODO: The shimming didn't work, the program diddn't compile so I finessed it but the logic is wonky. - jacqueline-homan
+            | "5" -> 
+                    let helpedWith = remainingUnmetNeeds()
+                    PartiallyHelped (helpedWith, refbuilder (cr), cr)
             | "6" -> Referred (refbuilder(cr), cr)
             | _ ->
                   printfn "Invalid Option"
